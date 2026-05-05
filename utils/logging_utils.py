@@ -244,6 +244,9 @@ class ExperimentLogger:
         self._total_infer_sec:    float = 0.0
         self._last_cm:            Optional[np.ndarray] = None
 
+        # Cached config dict (populated by save_config, used by finalize helpers)
+        self._cfg: dict[str, Any] = {}
+
         # Track whether CSV headers have been written
         if append:
             self._rounds_header_written    = self.path_rounds_csv.exists()
@@ -542,6 +545,9 @@ class ExperimentLogger:
             config_dict = config
         else:
             config_dict = vars(config)
+
+        # Cache for use by finalize_experiment() in server_app
+        self._cfg = config_dict
 
         path = self.log_dir / "config.json"
         path.write_text(

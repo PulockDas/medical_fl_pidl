@@ -243,6 +243,13 @@ def server_fn(context: Context) -> ServerAppComponents:
     from metrics.classification_metrics import compute_classification_metrics
     from utils.logging_utils import ExperimentLogger
 
+    # Expose at module level so the notebook can call finalize() explicitly
+    # after run_simulation() returns (atexit is unreliable with run_simulation).
+    global _active_exp_logger, _active_final_params_ref, _active_strategy_ref
+    _active_exp_logger = None
+    _active_final_params_ref = None
+    _active_strategy_ref = None
+
     exp_logger = ExperimentLogger(
         log_dir=log_dir,
         dataset_name=cfg["dataset_name"],
@@ -329,6 +336,11 @@ def server_fn(context: Context) -> ServerAppComponents:
     )
 
     _strategy_ref.append(strategy)
+
+    # Point module-level refs so notebook can finalize after run_simulation
+    _active_exp_logger       = exp_logger
+    _active_final_params_ref = _final_params_ref
+    _active_strategy_ref     = _strategy_ref
 
     # ── atexit: merge training stats + finalize all output files ──────────
     # Runs automatically when `flwr run .` exits, ensuring fl_rounds.csv,
@@ -426,3 +438,62 @@ def server_fn(context: Context) -> ServerAppComponents:
 # ---------------------------------------------------------------------------
 
 app = ServerApp(server_fn=server_fn)
+
+
+# ---------------------------------------------------------------------------
+# Public finalization helper — called explicitly by the notebook after
+# run_simulation() returns (atexit is not guaranteed to fire in that context)
+# ---------------------------------------------------------------------------
+
+#: Module-level refs populated during server_fn execution
+_active_exp_logger:       object = None  # type: ignore[assignment]
+_active_final_params_ref: list   = []
+_active_strategy_ref:     list   = []
+
+
+def finalize_experiment() -> None:
+    """Finalize logging and save the model after ``run_simulation()`` returns.
+
+    Call this once in the notebook immediately after each ``run_simulation()``
+    call::
+
+        run_simulation(server_app=_server_app, ...)
+        from federated.server_app import finalize_experiment
+        finalize_experiment()
+
+    This writes ``fl_summary.json``, ``fl_eval.json``, and ``final_model.pth``
+    to the experiment's ``log_dir``.
+    """
+    import federated.server_app as _sa
+
+    logger     = _sa._active_exp_logger
+    params_ref = _sa._active_final_params_ref
+    strat_ref  = _sa._active_strategy_ref
+
+    if logger is None:
+        print("[finalize_experiment] No active experiment to finalize.")
+        return
+
+    if strat_ref:
+        hist = strat_ref[0].get_history()
+        if hist:
+            _backfill_training_losses(logger, hist)
+            logger.log_client_rounds_from_history(hist)
+
+    logger.finalize()
+
+    if params_ref:
+        try:
+            import torch as _torch
+            from configs.experiment_config import ModelConfig
+            cfg_snap = logger._cfg if hasattr(logger, "_cfg") else {}
+            nc  = int(cfg_snap.get("num_classes", 4))
+            fl  = str(cfg_snap.get("feature_layer", "layer2"))
+            mdl_cfg = ModelConfig(pidl_feature_layer=fl)  # type: ignore[arg-type]
+            final_model = build_model(num_classes=nc, config=mdl_cfg).to("cpu")
+            set_model_parameters(final_model, params_ref[0])
+            model_path = logger.log_dir / "final_model.pth"
+            _torch.save(final_model.state_dict(), str(model_path))
+            print(f"[finalize_experiment] Final model saved → {model_path}")
+        except Exception as _e:
+            print(f"[finalize_experiment] Warning: could not save model — {_e}")
