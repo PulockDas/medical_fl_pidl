@@ -266,6 +266,10 @@ def server_fn(context: Context) -> ServerAppComponents:
         model = build_model(num_classes=num_classes, config=model_cfg).to(device)
         set_model_parameters(model, list(parameters))
 
+        # Capture parameters for model saving at finalization
+        _final_params_ref.clear()
+        _final_params_ref.append(list(parameters))
+
         t0 = _time.time()
         results = evaluate_full(model, global_test_loader, device, num_classes)
         infer_time = _time.time() - t0
@@ -303,13 +307,14 @@ def server_fn(context: Context) -> ServerAppComponents:
     nc = cfg["num_clients"]
     mf = cfg["min_fit_clients"]
 
-    # Mutable holder so the atexit handler can reach the strategy after
-    # it is created below.
-    _strategy_ref: list = []
+    # Mutable holders — atexit handler writes final model and strategy history
+    _strategy_ref:      list = []
+    _final_params_ref:  list = []   # stores the most recent NDArrays from evaluate_fn
 
     strategy = LoggingFedAvg(
         log_path=log_path,
         log_dir=log_dir,
+        num_shares=cfg["secagg_num_shares"],   # forwarded to SecAgg timing sim
         # Server-side evaluation after every round
         evaluate_fn=evaluate_fn,
         # FedAvg parameters
@@ -337,6 +342,20 @@ def server_fn(context: Context) -> ServerAppComponents:
                 _backfill_training_losses(exp_logger, hist)
                 exp_logger.log_client_rounds_from_history(hist)
         exp_logger.finalize()
+
+        # Save the final global model weights
+        if _final_params_ref:
+            try:
+                import torch as _torch
+                final_model = build_model(
+                    num_classes=num_classes, config=model_cfg
+                ).to("cpu")
+                set_model_parameters(final_model, _final_params_ref[0])
+                model_path = log_dir / "final_model.pth"
+                _torch.save(final_model.state_dict(), str(model_path))
+                print(f"[Finalize] Final model saved → {model_path}")
+            except Exception as _e:
+                print(f"[Finalize] Warning: could not save model — {_e}")
 
     atexit.register(_finalize_experiment)
 

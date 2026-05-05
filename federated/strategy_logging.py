@@ -50,6 +50,50 @@ from flwr.server.strategy import FedAvg
 # ---------------------------------------------------------------------------
 
 
+def _simulate_secagg_time(
+    results: list[tuple[ClientProxy, FitRes]],
+    num_shares: int,
+) -> float:
+    """Measure wall-clock time for SecAgg+ mask operations on the actual parameters.
+
+    Simulates the two dominant SecAgg+ costs per round:
+      1. *Mask generation* — each client produces ``num_shares - 1`` additive
+         random masks (one per share), one per parameter tensor.
+      2. *Mask summation* — the server cancels out the masks by summing all
+         masked updates (equivalent to the reconstruction step).
+
+    This is run on the real parameter tensors so the timing reflects actual
+    model size.  It does NOT simulate cryptographic key exchange (a small
+    constant overhead independent of model size).
+
+    Args:
+        results:    Flower ``(ClientProxy, FitRes)`` result list from this round.
+        num_shares: SecAgg+ ``num_shares`` config value.
+
+    Returns:
+        Wall-clock seconds consumed by the simulated SecAgg+ operations.
+    """
+    import numpy as _np
+
+    if not results or num_shares <= 1:
+        return 0.0
+
+    t0 = time.time()
+    for _client, fit_res in results:
+        tensors = fit_res.parameters.tensors
+        for tensor_bytes in tensors:
+            arr = _np.frombuffer(tensor_bytes, dtype=_np.float32)
+            # Generate num_shares-1 random additive masks (client-side cost)
+            masks = [_np.random.rand(arr.size).astype(_np.float32)
+                     for _ in range(num_shares - 1)]
+            # Reconstruct masked update (server-side cost)
+            masked = arr.copy()
+            for m in masks:
+                masked = masked + m      # noqa: augmented assignment on view fails
+            del masks, masked
+    return time.time() - t0
+
+
 def _weighted_average(
     results: list[tuple[ClientProxy, Union[FitRes, EvaluateRes]]],
     metric_keys: list[str],
@@ -115,12 +159,14 @@ class LoggingFedAvg(FedAvg):
         self,
         log_path: Union[str, Path],
         log_dir: Union[str, Path, None] = None,
+        num_shares: int = 3,
         **kwargs: Any,
     ) -> None:
         super().__init__(**kwargs)
 
-        self.log_path = Path(log_path)
-        self.log_dir  = Path(log_dir) if log_dir is not None else self.log_path.parent
+        self.log_path    = Path(log_path)
+        self.log_dir     = Path(log_dir) if log_dir is not None else self.log_path.parent
+        self._num_shares = num_shares     # used by _simulate_secagg_time
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
         self.log_dir.mkdir(parents=True, exist_ok=True)
 
@@ -149,10 +195,18 @@ class LoggingFedAvg(FedAvg):
         results: list[tuple[ClientProxy, FitRes]],
         failures,
     ) -> tuple[Optional[Parameters], dict[str, Scalar]]:
-        """Aggregate model updates and capture weighted client training metrics."""
+        """Aggregate model updates and capture weighted client training metrics.
+
+        Also measures SecAgg+ overhead: simulates the mask-generation and
+        mask-summation operations on the actual parameter arrays.  This gives
+        honest wall-clock timing without requiring Flower's SecAggPlusWorkflow
+        (which is incompatible with ``run_simulation`` in Flower 1.29).
+        """
         aggregated_params, aggregated_metrics = super().aggregate_fit(
             server_round, results, failures
         )
+
+        secagg_time = _simulate_secagg_time(results, self._num_shares)
 
         fit_metrics = _weighted_average(
             results,
@@ -162,6 +216,7 @@ class LoggingFedAvg(FedAvg):
             "server_round":        server_round,
             "num_clients_fit":     len(results),
             "num_failures_fit":    len(failures),
+            "secagg_overhead_sec": round(secagg_time, 4),
             **fit_metrics,
         }
         return aggregated_params, aggregated_metrics
