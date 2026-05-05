@@ -148,6 +148,7 @@ k                = 1.0             # Perona-Malik edge-sensitivity threshold K
 # max_weight               = 2^20 − 1 = 1048575
 #                            Maximum integer weight value in the SecAgg+ encoding.
 #                            Larger values support bigger model weight ranges.
+use_secagg                      = false   # set true only when using 'flwr run' CLI
 secagg_num_shares               = 3
 secagg_reconstruction_threshold = 2
 secagg_max_weight               = 1048575

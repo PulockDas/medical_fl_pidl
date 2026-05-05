@@ -122,6 +122,7 @@ def _parse_run_config(run_config: dict) -> dict:
         "grid_size":        _get("grid_size",         4,                 int),
         "k":                _get("k",                 0.1,               float),
         "random_seed":      _get("random_seed",       42,                int),
+        "use_secagg":       _get("use_secagg",        False,             bool),
     }
 
 
@@ -323,11 +324,20 @@ def client_fn(context: Context):
 # ---------------------------------------------------------------------------
 # Module-level ClientApp — referenced by pyproject.toml
 # ---------------------------------------------------------------------------
-# secaggplus_mod intercepts the fit response and encrypts the model update
-# before it reaches the server.  The server accumulates encrypted shares and
-# reconstructs only the aggregate, never individual client updates.
+# secaggplus_mod is enabled only when use_secagg=True in the run config.
+# In simulation (run_simulation / Flower 1.29), SecAgg+ workflow is not
+# supported by the framework, so use_secagg must be False (the default).
+# For real federated deployments via `flwr run`, set use_secagg=True.
 
-if _SECAGG_MOD_AVAILABLE:
-    app = ClientApp(client_fn=client_fn, mods=[secaggplus_mod])
-else:
-    app = ClientApp(client_fn=client_fn)
+def _make_client_app() -> ClientApp:
+    import json as _json, os as _os
+    cfg_json = _os.environ.get("FL_RUN_OVERRIDE", "{}")
+    try:
+        use_secagg = str(_json.loads(cfg_json).get("use_secagg", "false")).lower() in ("true", "1")
+    except _json.JSONDecodeError:
+        use_secagg = False
+    if use_secagg and _SECAGG_MOD_AVAILABLE:
+        return ClientApp(client_fn=client_fn, mods=[secaggplus_mod])
+    return ClientApp(client_fn=client_fn)
+
+app = _make_client_app()

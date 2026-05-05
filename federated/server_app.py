@@ -141,7 +141,9 @@ def _parse_run_config(run_config: dict) -> dict:
         "grid_size":          _get("grid_size",           4,                 int),
         "k":                             _get("k",                             0.1,      float),
         "random_seed":                   _get("random_seed",                   42,       int),
-        # SecAgg+ — read explicitly so pyproject.toml values are honoured
+        # SecAgg+ — disabled by default for simulation (run_simulation in Flower
+        # 1.29 does not support SecAggPlusWorkflow; enable only via flwr run CLI)
+        "use_secagg":                      _get("use_secagg",                      False,    bool),
         "secagg_num_shares":               _get("secagg_num_shares",               3,        int),
         "secagg_reconstruction_threshold": _get("secagg_reconstruction_threshold", 2,        int),
         "secagg_max_weight":               _get("secagg_max_weight",               1048575,  int),
@@ -349,7 +351,9 @@ def server_fn(context: Context) -> ServerAppComponents:
     reconstruction_threshold = cfg.get("secagg_reconstruction_threshold", max(1, mf))
     max_weight               = cfg.get("secagg_max_weight",               1048575)
 
-    if _SECAGG_AVAILABLE:
+    use_secagg = cfg.get("use_secagg", False)  # disabled by default for simulation
+
+    if use_secagg and _SECAGG_AVAILABLE:
         print(
             f"\n[SecAgg+] Enabled\n"
             f"  num_shares               = {num_shares}\n"
@@ -366,18 +370,18 @@ def server_fn(context: Context) -> ServerAppComponents:
                 max_weight=max_weight,
             )
         except TypeError:
-            # Older Flower build — fall back to clipping_range + quantization_range
             workflow = SecAggPlusWorkflow(
                 num_shares=num_shares,
                 reconstruction_threshold=reconstruction_threshold,
                 clipping_range=8.0,
                 quantization_range=4,
             )
-    elif DefaultWorkflow is not None:
-        print("[SecAgg+] Not available — using DefaultWorkflow (no SecAgg+).")
-        workflow = DefaultWorkflow()
     else:
-        workflow = None
+        if use_secagg and not _SECAGG_AVAILABLE:
+            print("[SecAgg+] Requested but not available in this Flower build — using DefaultWorkflow.")
+        else:
+            print("[SecAgg+] Disabled (use_secagg=False). Using DefaultWorkflow.")
+        workflow = DefaultWorkflow() if DefaultWorkflow is not None else None
 
     print(
         f"\n{'='*62}\n"
@@ -386,7 +390,7 @@ def server_fn(context: Context) -> ServerAppComponents:
         f"  Clients      : {nc}   Rounds: {cfg['num_server_rounds']}\n"
         f"  PIDL layer   : {cfg['feature_layer']}  "
         f"λ={cfg['lambda_pm']}  type={cfg['regularizer_type']}\n"
-        f"  SecAgg+      : {_SECAGG_AVAILABLE}\n"
+        f"  SecAgg+      : {use_secagg and _SECAGG_AVAILABLE}\n"
         f"  Log dir      : {log_dir}\n"
         f"{'='*62}\n"
     )
