@@ -88,14 +88,31 @@ def _parse_run_config(run_config: dict) -> dict:
     when overridden on the command line.  This function coerces every
     key to the expected type so downstream code never needs to cast.
 
+    When called from a notebook via ``run_simulation()`` (Flower 1.29+),
+    ``context.run_config`` only contains the ``pyproject.toml`` defaults.
+    Experiment-specific overrides are injected via the ``FL_RUN_OVERRIDE``
+    environment variable (JSON string set by the notebook before each run).
+    Ray workers inherit environment variables from the parent process.
+
     Args:
         run_config: Raw ``context.run_config`` dict.
 
     Returns:
         Typed config dict with all expected keys present.
     """
+    import json as _json
+    import os as _os
+
+    merged = dict(run_config)
+    override_json = _os.environ.get("FL_RUN_OVERRIDE", "")
+    if override_json:
+        try:
+            merged.update(_json.loads(override_json))
+        except _json.JSONDecodeError:
+            pass
+
     def _get(key: str, default, cast):
-        val = run_config.get(key, default)
+        val = merged.get(key, default)
         try:
             if cast is bool:
                 if isinstance(val, bool):

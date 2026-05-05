@@ -76,10 +76,25 @@ except ImportError:
 
 
 def _parse_run_config(run_config: dict) -> dict:
-    """Cast run_config values to Python types (same logic as server_app)."""
+    """Cast run_config values to Python types (same logic as server_app).
+
+    Also merges ``FL_RUN_OVERRIDE`` env var (JSON) set by the notebook before
+    each ``run_simulation()`` call so experiment-specific config reaches the
+    Ray workers that Flower spawns.
+    """
+    import json as _json
+    import os as _os
+
+    merged = dict(run_config)
+    override_json = _os.environ.get("FL_RUN_OVERRIDE", "")
+    if override_json:
+        try:
+            merged.update(_json.loads(override_json))
+        except _json.JSONDecodeError:
+            pass
 
     def _get(key: str, default, cast):
-        val = run_config.get(key, default)
+        val = merged.get(key, default)
         try:
             if cast is bool:
                 if isinstance(val, bool):
