@@ -1,0 +1,174 @@
+# ===========================================================================
+# medical_fl_pidl — project metadata and Flower run configuration
+#
+# Quick-start (from inside the medical_fl_pidl/ directory):
+#
+#   pip install -e ".[dev]"          # install package + dev tools
+#   flwr run .                       # run with defaults below
+#   flwr run . --run-config "num_server_rounds=10 num_clients=5"
+#   flwr run . --federation local-simulation-5
+#
+# All [tool.flwr.app.config] keys can be overridden on the command line
+# without editing this file.
+# ===========================================================================
+
+[build-system]
+requires      = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+
+# ---------------------------------------------------------------------------
+# Project metadata
+# ---------------------------------------------------------------------------
+
+[project]
+name            = "medical-fl-pidl"
+version         = "0.1.0"
+description     = "Federated Learning for Medical Image Classification with Physics-Informed Deep Learning (Perona-Malik Spatial PIDL Regularization)"
+readme          = "README.md"
+requires-python = ">=3.10"
+license         = { text = "MIT" }
+keywords        = [
+    "federated-learning", "medical-imaging",
+    "physics-informed", "deep-learning",
+    "flower", "perona-malik", "pidl",
+]
+
+dependencies = [
+    # Deep learning
+    "torch>=2.1.0",
+    "torchvision>=0.16.0",
+    # Federated learning (Flower + simulation backend + SecAgg+)
+    "flwr[simulation]>=1.9.0",
+    # Dataset acquisition
+    "kagglehub>=0.2.0",
+    # Numerical / data science
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "scikit-learn>=1.3.0",
+    "scipy>=1.11.0",
+    # Visualisation
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    # Image processing
+    "Pillow>=10.0.0",
+    # Progress bars
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+# Install with: pip install -e ".[dev]"
+dev = [
+    "jupyter>=1.0.0",
+    "ipywidgets>=8.0.0",
+    "black>=24.0.0",
+    "isort>=5.13.0",
+    "flake8>=7.0.0",
+]
+
+[tool.setuptools.packages.find]
+where   = ["."]
+include = ["configs*", "data*", "federated*", "losses*", "metrics*", "models*", "utils*"]
+
+
+# ---------------------------------------------------------------------------
+# Code style
+# ---------------------------------------------------------------------------
+
+[tool.black]
+line-length    = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.isort]
+profile     = "black"
+line_length = 100
+
+
+# ===========================================================================
+# Flower federated run configuration
+#
+# Keys use underscores (Python convention). Every key here is read by
+# server_app._parse_run_config() and client_app._parse_run_config().
+#
+# Override any key at runtime without editing this file:
+#   flwr run . --run-config "num_clients=5 num_server_rounds=20"
+# ===========================================================================
+
+[tool.flwr.app]
+publisher = "medical-fl-pidl"
+
+[tool.flwr.app.components]
+serverapp = "federated.server_app:app"
+clientapp = "federated.client_app:app"
+
+[tool.flwr.app.config]
+
+# ── Dataset ────────────────────────────────────────────────────────────────
+# Set data_root to the path returned by find_image_root() after downloading
+# a Kaggle dataset via kagglehub.  Example:
+#   data_root = "/root/.cache/kagglehub/datasets/masoudnickparvar/brain-tumor-mri-dataset/versions/1/Training"
+dataset_name = "brain_tumor_mri"
+data_root    = ""              # REQUIRED — fill in after kagglehub download
+log_dir      = "results/run_001"
+num_classes  = 4               # set to 0 for auto-detection from folder structure
+random_seed  = 42
+
+# ── Federated learning ─────────────────────────────────────────────────────
+num_server_rounds = 5          # number of global aggregation rounds
+num_clients       = 3          # total virtual clients (3, 4, or 5)
+min_fit_clients   = 3          # minimum clients that must participate per round
+
+# ── Local client training ──────────────────────────────────────────────────
+local_epochs  = 2              # local SGD passes per FL round
+batch_size    = 32
+learning_rate = 0.001
+image_size    = 224            # square resize target in pixels
+
+# ── PIDL regularization ────────────────────────────────────────────────────
+# feature_layer — which ResNet intermediate layer's feature map feeds the PIDL loss:
+#   layer1 → (B, 64,  56, 56)  low-level edges
+#   layer2 → (B, 128, 28, 28)  mid-level patterns  ← default
+#   layer3 → (B, 256, 14, 14)  semantic regions
+#   layer4 → (B, 512,  7,  7)  high-level semantics
+feature_layer    = "layer2"
+regularizer_type = "perona_malik"   # "perona_malik" | "isotropic" | "none"
+lambda_pm        = 0.1              # regularization weight λ
+use_grid_loss    = true             # divide feature map into grid_size² local patches
+grid_size        = 4               # number of patches per axis (4 → 16 patches)
+k                = 1.0             # Perona-Malik edge-sensitivity threshold K
+                                    # larger K → more edges preserved
+
+# ── SecAgg+ secure aggregation ─────────────────────────────────────────────
+# No differential privacy noise is added anywhere in this pipeline.
+# SecAgg+ ensures the server never sees individual client model updates —
+# only their aggregate.
+#
+# num_shares               = num_clients (each client holds every other client's share)
+# reconstruction_threshold = min_fit_clients (tolerate num_clients-min_fit_clients dropouts)
+# max_weight               = 2^20 − 1 = 1048575
+#                            Maximum integer weight value in the SecAgg+ encoding.
+#                            Larger values support bigger model weight ranges.
+secagg_num_shares               = 3
+secagg_reconstruction_threshold = 2
+secagg_max_weight               = 1048575
+
+
+# ===========================================================================
+# Federation presets
+#
+# Select a preset with:   flwr run . --federation local-simulation-5
+# The num-supernodes value MUST match num_clients in [tool.flwr.app.config]
+# (or its --run-config override) for partitioning to be consistent.
+# ===========================================================================
+
+[tool.flwr.federations]
+default = "local-simulation-3"
+
+[tool.flwr.federations.local-simulation-3]
+options.num-supernodes = 3
+
+[tool.flwr.federations.local-simulation-4]
+options.num-supernodes = 4
+
+[tool.flwr.federations.local-simulation-5]
+options.num-supernodes = 5
