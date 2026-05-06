@@ -122,6 +122,11 @@ def _parse_run_config(run_config: dict) -> dict:
         except (ValueError, TypeError):
             return default
 
+    def _parse_id_list(raw) -> list:
+        if isinstance(raw, str):
+            return [int(x.strip()) for x in raw.split(",") if x.strip()]
+        return [int(x) for x in raw] if raw else []
+
     return {
         "dataset_name":       _get("dataset_name",       "brain_tumor_mri", str),
         "data_root":          _get("data_root",           "",                str),
@@ -147,6 +152,14 @@ def _parse_run_config(run_config: dict) -> dict:
         "secagg_num_shares":               _get("secagg_num_shares",               3,        int),
         "secagg_reconstruction_threshold": _get("secagg_reconstruction_threshold", 2,        int),
         "secagg_max_weight":               _get("secagg_max_weight",               1048575,  int),
+        # ── Robustness (disabled by default) ──────────────────────────
+        "enable_attack":          _get("enable_attack",          False,           bool),
+        "attack_type":            _get("attack_type",            "gaussian_noise",str),
+        "malicious_client_ids":   _parse_id_list(merged.get("malicious_client_ids", "")),
+        "noise_std":              _get("noise_std",              0.5,             float),
+        "label_flip_probability": _get("label_flip_probability", 0.3,             float),
+        "enable_update_clipping": _get("enable_update_clipping", False,           bool),
+        "clip_norm":              _get("clip_norm",              3.0,             float),
     }
 
 

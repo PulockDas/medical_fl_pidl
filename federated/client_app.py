@@ -104,6 +104,13 @@ def _parse_run_config(run_config: dict) -> dict:
         except (ValueError, TypeError):
             return default
 
+    # Robustness: parse malicious_client_ids as list of ints from comma string
+    _raw_ids = merged.get("malicious_client_ids", "")
+    if isinstance(_raw_ids, str):
+        _mal_ids = [int(x.strip()) for x in _raw_ids.split(",") if x.strip()]
+    else:
+        _mal_ids = [int(x) for x in _raw_ids] if _raw_ids else []
+
     return {
         "dataset_name":     _get("dataset_name",     "brain_tumor_mri", str),
         "data_root":        _get("data_root",         "",                str),
@@ -123,6 +130,14 @@ def _parse_run_config(run_config: dict) -> dict:
         "k":                _get("k",                 0.1,               float),
         "random_seed":      _get("random_seed",       42,                int),
         "use_secagg":       _get("use_secagg",        False,             bool),
+        # ── Robustness (disabled by default) ──────────────────────────
+        "enable_attack":            _get("enable_attack",            False,           bool),
+        "attack_type":              _get("attack_type",              "gaussian_noise",str),
+        "malicious_client_ids":     _mal_ids,
+        "noise_std":                _get("noise_std",                0.5,             float),
+        "label_flip_probability":   _get("label_flip_probability",   0.3,             float),
+        "enable_update_clipping":   _get("enable_update_clipping",   False,           bool),
+        "clip_norm":                _get("clip_norm",                3.0,             float),
     }
 
 
@@ -158,13 +173,37 @@ class MedicalFLClient(NumPyClient):
         cfg: dict,
     ) -> None:
         self.model        = model.to(device)
-        self.train_loader = train_loader
         self.val_loader   = val_loader
         self.criterion    = criterion
         self.ce_only      = nn.CrossEntropyLoss()  # evaluation uses CE only
         self.device       = device
         self.client_id    = client_id
         self.cfg          = cfg
+
+        # ── Apply data-poisoning attack if this client is malicious ───
+        # Wraps the training DataLoader's dataset with a noise or label-flip
+        # transform. The server and other clients are unaware of this.
+        self.is_malicious = (
+            cfg.get("enable_attack", False)
+            and client_id in cfg.get("malicious_client_ids", [])
+        )
+        if self.is_malicious:
+            from robustness.attacks import wrap_dataset_with_attack
+            num_classes = cfg.get("num_classes", 4) or 4
+            self.train_loader = wrap_dataset_with_attack(
+                original_loader=train_loader,
+                attack_type=cfg.get("attack_type", "gaussian_noise"),
+                noise_std=cfg.get("noise_std", 0.5),
+                num_classes=num_classes,
+                label_flip_probability=cfg.get("label_flip_probability", 0.3),
+                seed=cfg.get("random_seed", 42) + client_id,
+            )
+            print(
+                f"[Robustness] Client {client_id} is MALICIOUS — "
+                f"attack={cfg.get('attack_type')}"
+            )
+        else:
+            self.train_loader = train_loader
 
     # ------------------------------------------------------------------
     # NumPyClient protocol
@@ -205,12 +244,37 @@ class MedicalFLClient(NumPyClient):
             num_epochs=self.cfg["local_epochs"],
         )
 
+        new_params = get_model_parameters(self.model)
+
+        # ── Update-clipping defense ───────────────────────────────────
+        # Clips L2 norm of (new_params − global_params) to clip_norm.
+        # Applied AFTER training, BEFORE sending to the server.
+        # Works for both honest and malicious clients.
+        update_norm_before = 0.0
+        if self.cfg.get("enable_update_clipping", False):
+            from robustness.defenses import clip_model_update, compute_update_norm
+            update_norm_before = compute_update_norm(parameters, new_params)
+            new_params = clip_model_update(
+                old_params=parameters,
+                new_params=new_params,
+                clip_norm=self.cfg.get("clip_norm", 3.0),
+            )
+            metrics["update_norm_before_clip"] = round(update_norm_before, 4)
+            metrics["update_norm_after_clip"]  = round(
+                compute_update_norm(parameters, new_params), 4
+            )
+            metrics["update_clipping_applied"] = True
+        else:
+            metrics["update_norm_before_clip"] = 0.0
+            metrics["update_clipping_applied"] = False
+
         num_examples = len(self.train_loader.dataset)
-        metrics["num_examples"] = num_examples
-        metrics["client_id"]    = self.client_id
+        metrics["num_examples"]  = num_examples
+        metrics["client_id"]     = self.client_id
+        metrics["is_malicious"]  = self.is_malicious
 
         return (
-            get_model_parameters(self.model),
+            new_params,
             num_examples,
             metrics,
         )
