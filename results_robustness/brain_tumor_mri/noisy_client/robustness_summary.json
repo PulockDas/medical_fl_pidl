@@ -1,0 +1,12 @@
+{
+  "experiment": "noisy_client",
+  "elapsed_sec": 748.4,
+  "final_accuracy": 0.9518,
+  "best_accuracy": 0.9518,
+  "final_macro_f1": 0.9518,
+  "final_ece": 0.0158,
+  "final_loss": 0.1425,
+  "secagg_overhead_mean_sec": 0.8297,
+  "train_ce_loss_final": 0.2817,
+  "train_reg_loss_final": 0.0337
+}

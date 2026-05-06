@@ -1,0 +1,12 @@
+{
+  "experiment": "noisy_clipped",
+  "elapsed_sec": 732.8,
+  "final_accuracy": 0.3402,
+  "best_accuracy": 0.3402,
+  "final_macro_f1": 0.2567,
+  "final_ece": 0.1308,
+  "final_loss": 1.5108,
+  "secagg_overhead_mean_sec": 0.6485,
+  "train_ce_loss_final": 0.6705,
+  "train_reg_loss_final": 0.054
+}

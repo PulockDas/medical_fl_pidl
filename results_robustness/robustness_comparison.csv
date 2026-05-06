@@ -1,0 +1,6 @@
+experiment,elapsed_sec,final_accuracy,best_accuracy,final_macro_f1,final_ece,final_loss,secagg_overhead_mean_sec,train_ce_loss_final,train_reg_loss_final
+clean,755.1,0.9545,0.9545,0.9543,0.0103,0.1332,0.6768,0.2726,0.0323
+noisy_client,748.4,0.9518,0.9518,0.9518,0.0158,0.1425,0.8297,0.2817,0.0337
+label_flip,712.3,0.9196,0.9232,0.9193,0.1098,0.32,0.6501,0.5973,0.029
+noisy_clipped,732.8,0.3402,0.3402,0.2567,0.1308,1.5108,0.6485,0.6705,0.054
+label_flip_clipped,715.9,0.3777,0.3777,0.3459,0.0582,1.3393,0.6643,0.8743,0.0435

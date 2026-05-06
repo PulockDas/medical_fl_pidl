@@ -1,0 +1,12 @@
+{
+  "experiment": "label_flip",
+  "elapsed_sec": 712.3,
+  "final_accuracy": 0.9196,
+  "best_accuracy": 0.9232,
+  "final_macro_f1": 0.9193,
+  "final_ece": 0.1098,
+  "final_loss": 0.32,
+  "secagg_overhead_mean_sec": 0.6501,
+  "train_ce_loss_final": 0.5973,
+  "train_reg_loss_final": 0.029
+}

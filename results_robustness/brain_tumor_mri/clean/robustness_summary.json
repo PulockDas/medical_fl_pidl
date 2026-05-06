@@ -1,0 +1,12 @@
+{
+  "experiment": "clean",
+  "elapsed_sec": 755.1,
+  "final_accuracy": 0.9545,
+  "best_accuracy": 0.9545,
+  "final_macro_f1": 0.9543,
+  "final_ece": 0.0103,
+  "final_loss": 0.1332,
+  "secagg_overhead_mean_sec": 0.6768,
+  "train_ce_loss_final": 0.2726,
+  "train_reg_loss_final": 0.0323
+}
