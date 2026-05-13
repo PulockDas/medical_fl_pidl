@@ -1,0 +1,434 @@
+[
+  {
+    "round": 0,
+    "dataset_name": "colon_cancer_or_pathology",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.499,
+      "balanced_accuracy": 0.499,
+      "f1_macro": 0.33288859239492996,
+      "f1_micro": 0.499,
+      "f1_weighted": 0.33288859239492996,
+      "precision_macro": 0.24974974974974976,
+      "recall_macro": 0.499,
+      "sensitivity_macro": 0.499,
+      "specificity_macro": 0.499,
+      "roc_auc_macro": 0.456812,
+      "pr_auc_macro": 0.44507831356532,
+      "mean_confidence": 0.9602444072365761,
+      "mean_entropy": 0.1464019599331508,
+      "ece": 0.4649247444272041,
+      "precision_colon_aca": 0.4994994994994995,
+      "recall_colon_aca": 0.998,
+      "f1_colon_aca": 0.6657771847898599,
+      "specificity_colon_aca": 0.0,
+      "support_colon_aca": 1000,
+      "precision_colon_n": 0.0,
+      "recall_colon_n": 0.0,
+      "f1_colon_n": 0.0,
+      "specificity_colon_n": 0.998,
+      "support_colon_n": 1000
+    },
+    "calibration": {
+      "ece": 0.4649247444272041,
+      "mce": 0.5049162316806859,
+      "ace": 0.4612444072365761,
+      "brier_score": 0.9430877990783968,
+      "mean_confidence": 0.9602444072365761,
+      "mean_entropy": 0.1464019599331508
+    },
+    "per_class": {
+      "colon_aca": {
+        "precision": 0.4994994994994995,
+        "recall": 0.998,
+        "sensitivity": 0.998,
+        "f1": 0.6657771847898599,
+        "specificity": 0.0,
+        "support": 1000,
+        "roc_auc": 0.45681200000000005,
+        "pr_auc": 0.49931504328232845
+      },
+      "colon_n": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 0.998,
+        "support": 1000,
+        "roc_auc": 0.456812,
+        "pr_auc": 0.44507831356532
+      }
+    },
+    "confusion_matrix": [
+      [
+        998,
+        2
+      ],
+      [
+        1000,
+        0
+      ]
+    ],
+    "global_test_loss": 1.9529273471832276
+  },
+  {
+    "round": 1,
+    "dataset_name": "colon_cancer_or_pathology",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.9785,
+      "balanced_accuracy": 0.9784999999999999,
+      "f1_macro": 0.9784900570288616,
+      "f1_micro": 0.9785,
+      "f1_weighted": 0.9784900570288616,
+      "precision_macro": 0.9793863854266539,
+      "recall_macro": 0.9784999999999999,
+      "sensitivity_macro": 0.9784999999999999,
+      "specificity_macro": 0.9784999999999999,
+      "roc_auc_macro": 0.999999,
+      "pr_auc_macro": 0.999999000999001,
+      "mean_confidence": 0.9758012785613537,
+      "mean_entropy": 0.06099224390124648,
+      "ece": 0.012168618828058234,
+      "precision_colon_aca": 0.9587727708533078,
+      "recall_colon_aca": 1.0,
+      "f1_colon_aca": 0.9789525208027411,
+      "specificity_colon_aca": 0.957,
+      "support_colon_aca": 1000,
+      "precision_colon_n": 1.0,
+      "recall_colon_n": 0.957,
+      "f1_colon_n": 0.9780275932549821,
+      "specificity_colon_n": 1.0,
+      "support_colon_n": 1000
+    },
+    "calibration": {
+      "ece": 0.012168618828058234,
+      "mce": 0.48678479343652725,
+      "ace": 0.004438221007585519,
+      "brier_score": 0.031981433231053284,
+      "mean_confidence": 0.9758012785613537,
+      "mean_entropy": 0.06099224390124648
+    },
+    "per_class": {
+      "colon_aca": {
+        "precision": 0.9587727708533078,
+        "recall": 1.0,
+        "sensitivity": 1.0,
+        "f1": 0.9789525208027411,
+        "specificity": 0.957,
+        "support": 1000,
+        "roc_auc": 0.999999,
+        "pr_auc": 0.999999000999001
+      },
+      "colon_n": {
+        "precision": 1.0,
+        "recall": 0.957,
+        "sensitivity": 0.957,
+        "f1": 0.9780275932549821,
+        "specificity": 1.0,
+        "support": 1000,
+        "roc_auc": 0.999999,
+        "pr_auc": 0.999999000999001
+      }
+    },
+    "confusion_matrix": [
+      [
+        1000,
+        0
+      ],
+      [
+        43,
+        957
+      ]
+    ],
+    "global_test_loss": 0.05189298313483596
+  },
+  {
+    "round": 2,
+    "dataset_name": "colon_cancer_or_pathology",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.9955,
+      "balanced_accuracy": 0.9955,
+      "f1_macro": 0.9954999088731546,
+      "f1_micro": 0.9955,
+      "f1_weighted": 0.9954999088731548,
+      "precision_macro": 0.9955401387512388,
+      "recall_macro": 0.9955,
+      "sensitivity_macro": 0.9955,
+      "specificity_macro": 0.9955,
+      "roc_auc_macro": 0.999984,
+      "pr_auc_macro": 0.9999842216748769,
+      "mean_confidence": 0.9935252690911293,
+      "mean_entropy": 0.02428728549611879,
+      "ece": 0.004486684620380394,
+      "precision_colon_aca": 0.9910802775024777,
+      "recall_colon_aca": 1.0,
+      "f1_colon_aca": 0.9955201592832255,
+      "specificity_colon_aca": 0.991,
+      "support_colon_aca": 1000,
+      "precision_colon_n": 1.0,
+      "recall_colon_n": 0.991,
+      "f1_colon_n": 0.9954796584630838,
+      "specificity_colon_n": 1.0,
+      "support_colon_n": 1000
+    },
+    "calibration": {
+      "ece": 0.004486684620380394,
+      "mce": 0.5411953926086426,
+      "ace": 0.001974730908870699,
+      "brier_score": 0.006059118844365722,
+      "mean_confidence": 0.9935252690911293,
+      "mean_entropy": 0.02428728549611879
+    },
+    "per_class": {
+      "colon_aca": {
+        "precision": 0.9910802775024777,
+        "recall": 1.0,
+        "sensitivity": 1.0,
+        "f1": 0.9955201592832255,
+        "specificity": 0.991,
+        "support": 1000,
+        "roc_auc": 0.999984,
+        "pr_auc": 0.9999839131716819
+      },
+      "colon_n": {
+        "precision": 1.0,
+        "recall": 0.991,
+        "sensitivity": 0.991,
+        "f1": 0.9954796584630838,
+        "specificity": 1.0,
+        "support": 1000,
+        "roc_auc": 0.999984,
+        "pr_auc": 0.9999842216748769
+      }
+    },
+    "confusion_matrix": [
+      [
+        1000,
+        0
+      ],
+      [
+        9,
+        991
+      ]
+    ],
+    "global_test_loss": 0.012760014252737165
+  },
+  {
+    "round": 3,
+    "dataset_name": "colon_cancer_or_pathology",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.9975,
+      "balanced_accuracy": 0.9975,
+      "f1_macro": 0.9974999843749024,
+      "f1_micro": 0.9975,
+      "f1_weighted": 0.9974999843749024,
+      "precision_macro": 0.9975124378109452,
+      "recall_macro": 0.9975,
+      "sensitivity_macro": 0.9975,
+      "specificity_macro": 0.9975,
+      "roc_auc_macro": 1.0,
+      "pr_auc_macro": 1.0,
+      "mean_confidence": 0.9946775836646556,
+      "mean_entropy": 0.0159083029198186,
+      "ece": 0.0038195113241672124,
+      "precision_colon_aca": 0.9950248756218906,
+      "recall_colon_aca": 1.0,
+      "f1_colon_aca": 0.9975062344139651,
+      "specificity_colon_aca": 0.995,
+      "support_colon_aca": 1000,
+      "precision_colon_n": 1.0,
+      "recall_colon_n": 0.995,
+      "f1_colon_n": 0.9974937343358395,
+      "specificity_colon_n": 1.0,
+      "support_colon_n": 1000
+    },
+    "calibration": {
+      "ece": 0.0038195113241672124,
+      "mce": 0.4791460633277893,
+      "ace": 0.0028224163353443104,
+      "brier_score": 0.004031265725081353,
+      "mean_confidence": 0.9946775836646556,
+      "mean_entropy": 0.0159083029198186
+    },
+    "per_class": {
+      "colon_aca": {
+        "precision": 0.9950248756218906,
+        "recall": 1.0,
+        "sensitivity": 1.0,
+        "f1": 0.9975062344139651,
+        "specificity": 0.995,
+        "support": 1000,
+        "roc_auc": 1.0,
+        "pr_auc": 1.0
+      },
+      "colon_n": {
+        "precision": 1.0,
+        "recall": 0.995,
+        "sensitivity": 0.995,
+        "f1": 0.9974937343358395,
+        "specificity": 1.0,
+        "support": 1000,
+        "roc_auc": 1.0,
+        "pr_auc": 1.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        1000,
+        0
+      ],
+      [
+        5,
+        995
+      ]
+    ],
+    "global_test_loss": 0.007955827437806874
+  },
+  {
+    "round": 4,
+    "dataset_name": "colon_cancer_or_pathology",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.9985,
+      "balanced_accuracy": 0.9984999999999999,
+      "f1_macro": 0.9984999966249923,
+      "f1_micro": 0.9985,
+      "f1_weighted": 0.9984999966249924,
+      "precision_macro": 0.9985044865403789,
+      "recall_macro": 0.9984999999999999,
+      "sensitivity_macro": 0.9984999999999999,
+      "specificity_macro": 0.9984999999999999,
+      "roc_auc_macro": 0.9999890000000001,
+      "pr_auc_macro": 0.999989099009901,
+      "mean_confidence": 0.9978682432472706,
+      "mean_entropy": 0.007252966328907376,
+      "ece": 0.0007844503819942233,
+      "precision_colon_aca": 0.9970089730807578,
+      "recall_colon_aca": 1.0,
+      "f1_colon_aca": 0.9985022466300549,
+      "specificity_colon_aca": 0.997,
+      "support_colon_aca": 1000,
+      "precision_colon_n": 1.0,
+      "recall_colon_n": 0.997,
+      "f1_colon_n": 0.9984977466199298,
+      "specificity_colon_n": 1.0,
+      "support_colon_n": 1000
+    },
+    "calibration": {
+      "ece": 0.0007844503819942233,
+      "mce": 0.2322292923927307,
+      "ace": 0.0006317567527294116,
+      "brier_score": 0.002729837459300544,
+      "mean_confidence": 0.9978682432472706,
+      "mean_entropy": 0.007252966328907376
+    },
+    "per_class": {
+      "colon_aca": {
+        "precision": 0.9970089730807578,
+        "recall": 1.0,
+        "sensitivity": 1.0,
+        "f1": 0.9985022466300549,
+        "specificity": 0.997,
+        "support": 1000,
+        "roc_auc": 0.999989,
+        "pr_auc": 0.9999889687957725
+      },
+      "colon_n": {
+        "precision": 1.0,
+        "recall": 0.997,
+        "sensitivity": 0.997,
+        "f1": 0.9984977466199298,
+        "specificity": 1.0,
+        "support": 1000,
+        "roc_auc": 0.9999890000000001,
+        "pr_auc": 0.999989099009901
+      }
+    },
+    "confusion_matrix": [
+      [
+        1000,
+        0
+      ],
+      [
+        3,
+        997
+      ]
+    ],
+    "global_test_loss": 0.006662263249163516
+  },
+  {
+    "round": 5,
+    "dataset_name": "colon_cancer_or_pathology",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.9925,
+      "balanced_accuracy": 0.9924999999999999,
+      "f1_macro": 0.9924995781012682,
+      "f1_micro": 0.9925,
+      "f1_weighted": 0.9924995781012682,
+      "precision_macro": 0.9926108374384237,
+      "recall_macro": 0.9924999999999999,
+      "sensitivity_macro": 0.9924999999999999,
+      "specificity_macro": 0.9924999999999999,
+      "roc_auc_macro": 0.9999999999999999,
+      "pr_auc_macro": 1.0,
+      "mean_confidence": 0.9863826849162579,
+      "mean_entropy": 0.03776010055966273,
+      "ece": 0.006117315083742124,
+      "precision_colon_aca": 0.9852216748768473,
+      "recall_colon_aca": 1.0,
+      "f1_colon_aca": 0.9925558312655087,
+      "specificity_colon_aca": 0.985,
+      "support_colon_aca": 1000,
+      "precision_colon_n": 1.0,
+      "recall_colon_n": 0.985,
+      "f1_colon_n": 0.9924433249370277,
+      "specificity_colon_n": 1.0,
+      "support_colon_n": 1000
+    },
+    "calibration": {
+      "ece": 0.006117315083742124,
+      "mce": 0.16096210877100636,
+      "ace": 0.006117315083742137,
+      "brier_score": 0.012954622258546005,
+      "mean_confidence": 0.9863826849162579,
+      "mean_entropy": 0.03776010055966273
+    },
+    "per_class": {
+      "colon_aca": {
+        "precision": 0.9852216748768473,
+        "recall": 1.0,
+        "sensitivity": 1.0,
+        "f1": 0.9925558312655087,
+        "specificity": 0.985,
+        "support": 1000,
+        "roc_auc": 1.0,
+        "pr_auc": 1.0
+      },
+      "colon_n": {
+        "precision": 1.0,
+        "recall": 0.985,
+        "sensitivity": 0.985,
+        "f1": 0.9924433249370277,
+        "specificity": 1.0,
+        "support": 1000,
+        "roc_auc": 0.9999999999999999,
+        "pr_auc": 1.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        1000,
+        0
+      ],
+      [
+        15,
+        985
+      ]
+    ],
+    "global_test_loss": 0.024065427852794526
+  }
+]

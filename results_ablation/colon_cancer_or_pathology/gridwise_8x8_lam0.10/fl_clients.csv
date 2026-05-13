@@ -1,0 +1,6 @@
+dataset_name,num_clients,round,client_id,num_samples,train_loss,train_accuracy,train_ce_loss,train_reg_loss,train_time_sec,class_distribution
+colon_cancer_or_pathology,3,1,aggregate,3,0.10836432559264358,0.97375,0.10115184931441785,0.07212475645821542,,
+colon_cancer_or_pathology,3,2,aggregate,3,0.05230724223057041,0.9865625,0.046364203242894975,0.05943038838310167,,
+colon_cancer_or_pathology,3,3,aggregate,3,0.0414676346743945,0.9883125,0.03747903177949047,0.039886026851832866,,
+colon_cancer_or_pathology,3,4,aggregate,3,0.03275820569728967,0.991,0.029583880054487054,0.031743256288580594,,
+colon_cancer_or_pathology,3,5,aggregate,3,0.031936110069858845,0.9904375,0.02956228919740397,0.02373820746084675,,

@@ -1,0 +1,35 @@
+{
+  "dataset_name": "colon_cancer_or_pathology",
+  "num_clients": 3,
+  "num_rounds": 6,
+  "best_accuracy": 0.999,
+  "best_accuracy_round": 4,
+  "final_accuracy": 0.998,
+  "best_balanced_accuracy": 0.999,
+  "best_balanced_accuracy_round": 4,
+  "final_balanced_accuracy": 0.998,
+  "best_macro_f1": 0.998999998999999,
+  "best_macro_f1_round": 4,
+  "final_macro_f1": 0.997999991999968,
+  "best_roc_auc_macro": 1.0,
+  "best_roc_auc_macro_round": 3,
+  "final_roc_auc_macro": 1.0,
+  "best_pr_auc_macro": 1.0,
+  "best_pr_auc_macro_round": 2,
+  "final_pr_auc_macro": 1.0,
+  "final_ece": 0.003169576883316028,
+  "final_mean_confidence": 0.9957496227622032,
+  "final_mean_entropy": 0.013630788775289069,
+  "total_training_time_sec": 0.0,
+  "total_inference_time_sec": 112.82,
+  "final_confusion_matrix": [
+    [
+      1000,
+      0
+    ],
+    [
+      4,
+      996
+    ]
+  ]
+}

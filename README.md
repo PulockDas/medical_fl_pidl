@@ -55,8 +55,10 @@ medical_fl_pidl/
 ├── notebooks/
 │   ├── 01_clean_multidataset_experiments.ipynb   Main FL runner (GitHub + Colab)
 │   ├── 02_result_analysis_and_plots.ipynb        Analysis, plots, summary tables
-│   └── 03_robustness_experiments_optional.ipynb  Attack/defense experiments
+│   ├── 03_robustness_experiments_optional.ipynb  Attack/defense experiments
+│   └── 04_ablation_study.ipynb                  PIDL type / grid size / lambda ablation
 ├── results/                      Per-run CSV/JSON output (main experiments)
+├── results_ablation/             Per-run output (ablation study)
 ├── results_robustness/           Per-run output (robustness experiments)
 ├── requirements.txt
 ├── pyproject.toml
@@ -86,6 +88,13 @@ then produces all plots and tables.
 
 Open `notebooks/03_robustness_experiments_optional.ipynb`.  
 Results are saved separately to `results_robustness/`.
+
+### Step 4 — Ablation study (optional)
+
+Open `notebooks/04_ablation_study.ipynb`.  
+Runs 18 new experiments (6 variants × 3 datasets, 3 clients) and loads the existing
+3-client baseline from `results/` without re-running it.  
+Results are saved to `results_ablation/`.
 
 ---
 
@@ -146,25 +155,81 @@ Default: `feature_layer = layer2`, `grid_size = 4`, `λ = 0.1`, `K = 1.0`.
 
 ## Experimental Results
 
-### Main experiments — final accuracy (5 FL rounds, 2 local epochs)
+All results: 5 FL rounds · 2 local epochs · ResNet18 · layer2 PIDL · SecAgg+ overhead simulated (~0.65–0.68 s/round).  
+`*` = best in group per dataset.
+
+---
+
+### Main experiments — final accuracy (grid-wise PIDL 4×4, λ=0.10)
 
 | Dataset | 3 clients | 4 clients | 5 clients |
 |---|---|---|---|
-| Brain Tumor MRI | 0.9527 | 0.9437 | 0.9500 |
-| Colon Cancer | 0.9995 | 0.9975 | 0.9990 |
-| COVID-19 | 0.9152 | 0.9029 | 0.9020 |
+| Brain Tumor MRI | 95.27 % | 94.37 % | 95.00 % |
+| Colon Cancer | 99.95 % | 99.75 % | 99.90 % |
+| COVID-19 | 91.52 % | 90.29 % | 90.20 % |
+
+---
+
+### Ablation Group 1 — PIDL Regulariser Type (3 clients, λ=0.10, grid 4×4)
+
+| Dataset | Method | Acc % | Bal.Acc % | F1-Mac % | Prec % | Recall % | ROC-AUC % | ECE % | Train (s) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Brain Tumor MRI | No PIDL | **95.54** \* | **95.54** | **95.56** | **95.64** | **95.54** | 99.59 | **1.49** | 361 |
+| Brain Tumor MRI | Global PIDL | 94.46 | 94.46 | 94.50 | 94.78 | 94.46 | 99.54 | 1.19 | 349 |
+| Brain Tumor MRI | Grid-wise 4×4 | 95.27 | 95.27 | 95.24 | 95.30 | 95.27 | **99.64** | 2.69 | 462 |
+| Colon Cancer | No PIDL | 99.25 | 99.25 | 99.25 | 99.26 | 99.25 | 100.00 | 0.61 | 1132 |
+| Colon Cancer | Global PIDL | 99.80 | 99.80 | 99.80 | 99.80 | 99.80 | 100.00 | 0.32 | 1098 |
+| Colon Cancer | Grid-wise 4×4 | **99.95** \* | **99.95** | **99.95** | **99.95** | **99.95** | 100.00 | **0.23** | 1347 |
+| COVID-19 | No PIDL | 88.59 | 91.81 | 88.26 | 85.90 | 91.81 | 98.39 | 3.47 | 1252 |
+| COVID-19 | Global PIDL | 90.88 | 92.51 | 91.27 | 90.46 | 92.51 | 98.80 | 1.80 | 1247 |
+| COVID-19 | Grid-wise 4×4 | **91.52** \* | **92.42** | **91.84** | **91.43** | **92.42** | 98.75 | 2.95 | 1690 |
+
+---
+
+### Ablation Group 2 — Grid Size (3 clients, λ=0.10, Perona-Malik)
+
+| Dataset | Grid | Acc % | Bal.Acc % | F1-Mac % | Prec % | Recall % | ROC-AUC % | ECE % | Train (s) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Brain Tumor MRI | 2×2 | 94.46 | 94.46 | 94.43 | 94.74 | 94.46 | 99.60 | 2.30 | 363 |
+| Brain Tumor MRI | 4×4 (baseline) | **95.27** \* | **95.27** | 95.24 | 95.30 | **95.27** | **99.64** | 2.69 | 462 |
+| Brain Tumor MRI | 8×8 | **95.27** \* | **95.27** | **95.29** | **95.39** | **95.27** | 99.62 | **1.19** | 352 |
+| Colon Cancer | 2×2 | **100.00** \* | **100.00** | **100.00** | **100.00** | **100.00** | 100.00 | 0.18 | 1106 |
+| Colon Cancer | 4×4 (baseline) | 99.95 | 99.95 | 99.95 | 99.95 | 99.95 | 100.00 | 0.23 | 1347 |
+| Colon Cancer | 8×8 | 99.95 | 99.95 | 99.95 | 99.95 | 99.95 | 100.00 | **0.09** | 1087 |
+| COVID-19 | 2×2 | **92.13** \* | **93.31** | **92.08** | 91.02 | **93.31** | 98.71 | 1.89 | 1252 |
+| COVID-19 | 4×4 (baseline) | 91.52 | 92.42 | 91.84 | 91.43 | 92.42 | 98.75 | 2.95 | 1690 |
+| COVID-19 | 8×8 | 90.53 | 89.99 | 91.18 | **93.05** | 89.99 | 98.73 | **1.36** | 1246 |
+
+---
+
+### Ablation Group 3 — Lambda Weight λ (3 clients, grid 4×4, Perona-Malik)
+
+| Dataset | λ | Acc % | Bal.Acc % | F1-Mac % | Prec % | Recall % | ROC-AUC % | ECE % | Train (s) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Brain Tumor MRI | 0.01 | 95.98 | 95.98 | 95.99 | 96.00 | 95.98 | 99.67 | 3.03 | 363 |
+| Brain Tumor MRI | 0.10 (baseline) | 95.27 | 95.27 | 95.24 | 95.30 | 95.27 | 99.64 | 2.69 | 462 |
+| Brain Tumor MRI | 0.50 | **96.52** \* | **96.52** | **96.51** | **96.51** | **96.52** | **99.70** | 2.55 | 365 |
+| Colon Cancer | 0.01 | 99.85 | 99.85 | 99.85 | 99.85 | 99.85 | 100.00 | 0.22 | 1116 |
+| Colon Cancer | 0.10 (baseline) | 99.95 | 99.95 | 99.95 | 99.95 | 99.95 | 100.00 | 0.23 | 1347 |
+| Colon Cancer | 0.50 | **100.00** \* | **100.00** | **100.00** | **100.00** | **100.00** | 100.00 | **0.08** | 1115 |
+| COVID-19 | 0.01 | **92.42** \* | **93.08** | **92.58** | 92.17 | **93.08** | **98.77** | 1.62 | 1237 |
+| COVID-19 | 0.10 (baseline) | 91.52 | 92.42 | 91.84 | 91.43 | 92.42 | 98.75 | 2.95 | 1690 |
+| COVID-19 | 0.50 | 92.27 | 92.67 | **92.76** | **92.94** | 92.67 | 98.67 | **1.57** | 1230 |
+
+---
 
 ### Robustness experiments — Brain Tumor MRI, 3 clients, 1 malicious client
 
 | Experiment | Final Acc | Macro F1 | ECE |
 |---|---|---|---|
-| Clean baseline | 0.9545 | 0.9543 | 0.0103 |
-| Gaussian noise attack | 0.9518 | 0.9518 | 0.0158 |
-| Label-flip attack | 0.9196 | 0.9193 | 0.1098 |
-| Noise + update clipping | 0.3402 | 0.2567 | 0.1308 |
-| Label-flip + update clipping | 0.3777 | 0.3459 | 0.0582 |
+| Clean baseline | 95.45 % | 95.43 % | 1.03 % |
+| Gaussian noise attack | 95.18 % | 95.18 % | 1.58 % |
+| Label-flip attack | 91.96 % | 91.93 % | 10.98 % |
+| Noise + update clipping | 34.02 % | 25.67 % | 13.08 % |
+| Label-flip + update clipping | 37.77 % | 34.59 % | 5.82 % |
 
-SecAgg+ simulated aggregation overhead: **~0.65–0.83 s per round**.
+> Update clipping (clip_norm=3.0) dramatically reduces accuracy when combined with attacks,  
+> indicating the defense is overly aggressive at this norm threshold for this model size.
 
 ---
 

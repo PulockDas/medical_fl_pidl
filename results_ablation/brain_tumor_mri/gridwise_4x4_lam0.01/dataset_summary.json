@@ -1,0 +1,78 @@
+{
+  "image_root": "/kaggle/input/brain-tumor-mri-dataset/Training",
+  "num_classes": 4,
+  "class_names": [
+    "glioma",
+    "meningioma",
+    "notumor",
+    "pituitary"
+  ],
+  "total_images": 5600,
+  "class_counts": {
+    "glioma": 1400,
+    "meningioma": 1400,
+    "notumor": 1400,
+    "pituitary": 1400
+  },
+  "is_grayscale_source": true,
+  "splits": {
+    "train": {
+      "total": 4480,
+      "class_counts": {
+        "glioma": 1120,
+        "meningioma": 1120,
+        "notumor": 1120,
+        "pituitary": 1120
+      }
+    },
+    "test": {
+      "total": 1120,
+      "class_counts": {
+        "glioma": 280,
+        "meningioma": 280,
+        "notumor": 280,
+        "pituitary": 280
+      }
+    }
+  },
+  "partitioning": {
+    "strategy": "iid",
+    "num_clients": 3,
+    "client_sizes": [
+      1496,
+      1492,
+      1492
+    ],
+    "client_class_distributions": [
+      {
+        "glioma": 374,
+        "meningioma": 374,
+        "notumor": 374,
+        "pituitary": 374
+      },
+      {
+        "glioma": 373,
+        "meningioma": 373,
+        "notumor": 373,
+        "pituitary": 373
+      },
+      {
+        "glioma": 373,
+        "meningioma": 373,
+        "notumor": 373,
+        "pituitary": 373
+      }
+    ]
+  },
+  "settings": {
+    "image_size": [
+      224,
+      224
+    ],
+    "batch_size": 32,
+    "augment": true,
+    "random_seed": 42,
+    "test_split": 0.2,
+    "num_workers": 0
+  }
+}

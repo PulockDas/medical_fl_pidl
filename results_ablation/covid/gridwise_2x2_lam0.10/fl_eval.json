@@ -1,0 +1,710 @@
+[
+  {
+    "round": 0,
+    "dataset_name": "covid",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.06354831089062131,
+      "balanced_accuracy": 0.25,
+      "f1_macro": 0.029875610839626834,
+      "f1_micro": 0.06354831089062131,
+      "f1_weighted": 0.007594178422735289,
+      "precision_macro": 0.015887077722655327,
+      "recall_macro": 0.25,
+      "sensitivity_macro": 0.25,
+      "specificity_macro": 0.75,
+      "roc_auc_macro": 0.4961046306217607,
+      "pr_auc_macro": 0.2521594575237821,
+      "mean_confidence": 0.94846801931853,
+      "mean_entropy": 0.22225770370376463,
+      "ece": 0.8849197084279088,
+      "precision_COVID": 0.0,
+      "recall_COVID": 0.0,
+      "f1_COVID": 0.0,
+      "specificity_COVID": 1.0,
+      "support_COVID": 723,
+      "precision_Lung_Opacity": 0.0,
+      "recall_Lung_Opacity": 0.0,
+      "f1_Lung_Opacity": 0.0,
+      "specificity_Lung_Opacity": 1.0,
+      "support_Lung_Opacity": 1203,
+      "precision_Normal": 0.0,
+      "recall_Normal": 0.0,
+      "f1_Normal": 0.0,
+      "specificity_Normal": 1.0,
+      "support_Normal": 2038,
+      "precision_Viral_Pneumonia": 0.06354831089062131,
+      "recall_Viral_Pneumonia": 1.0,
+      "f1_Viral_Pneumonia": 0.11950244335850733,
+      "specificity_Viral_Pneumonia": 0.0,
+      "support_Viral_Pneumonia": 269
+    },
+    "calibration": {
+      "ece": 0.8849197084279088,
+      "mce": 0.9086613351645163,
+      "ace": 0.8849197084279086,
+      "brier_score": 1.7533921194105506,
+      "mean_confidence": 0.94846801931853,
+      "mean_entropy": 0.22225770370376463
+    },
+    "per_class": {
+      "COVID": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 723,
+        "roc_auc": 0.5793134021349788,
+        "pr_auc": 0.19488123922830247
+      },
+      "Lung_Opacity": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 1203,
+        "roc_auc": 0.6573416568589527,
+        "pr_auc": 0.4074940277563633
+      },
+      "Normal": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 2038,
+        "roc_auc": 0.26923130229511716,
+        "pr_auc": 0.3473482827039943
+      },
+      "Viral Pneumonia": {
+        "precision": 0.06354831089062131,
+        "recall": 1.0,
+        "sensitivity": 1.0,
+        "f1": 0.11950244335850733,
+        "specificity": 0.0,
+        "support": 269,
+        "roc_auc": 0.4785321611979939,
+        "pr_auc": 0.05891428040646837
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        723
+      ],
+      [
+        0,
+        0,
+        0,
+        1203
+      ],
+      [
+        0,
+        0,
+        0,
+        2038
+      ],
+      [
+        0,
+        0,
+        0,
+        269
+      ]
+    ],
+    "global_test_loss": 4.336578368690034
+  },
+  {
+    "round": 1,
+    "dataset_name": "covid",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.2693125442948264,
+      "balanced_accuracy": 0.33413634002114,
+      "f1_macro": 0.20606180670026042,
+      "f1_micro": 0.2693125442948264,
+      "f1_weighted": 0.20313422725119804,
+      "precision_macro": 0.5210155251740539,
+      "recall_macro": 0.33413634002114,
+      "sensitivity_macro": 0.33413634002114,
+      "specificity_macro": 0.7791705452596542,
+      "roc_auc_macro": 0.9438178003871751,
+      "pr_auc_macro": 0.8724758175297487,
+      "mean_confidence": 0.6533136121310891,
+      "mean_entropy": 0.8770286773101399,
+      "ece": 0.38920745047981115,
+      "precision_COVID": 0.1916135881104034,
+      "recall_COVID": 0.9986168741355463,
+      "f1_COVID": 0.3215319527944778,
+      "specificity_COVID": 0.1321937321937322,
+      "support_COVID": 723,
+      "precision_Lung_Opacity": 0.8924485125858124,
+      "recall_Lung_Opacity": 0.32418952618453867,
+      "f1_Lung_Opacity": 0.47560975609756095,
+      "specificity_Lung_Opacity": 0.9844884488448845,
+      "support_Lung_Opacity": 1203,
+      "precision_Normal": 1.0,
+      "recall_Normal": 0.013738959764474975,
+      "f1_Normal": 0.027105517909002903,
+      "specificity_Normal": 1.0,
+      "support_Normal": 2038,
+      "precision_Viral_Pneumonia": 0.0,
+      "recall_Viral_Pneumonia": 0.0,
+      "f1_Viral_Pneumonia": 0.0,
+      "specificity_Viral_Pneumonia": 1.0,
+      "support_Viral_Pneumonia": 269
+    },
+    "calibration": {
+      "ece": 0.38920745047981115,
+      "mce": 0.6677725911140442,
+      "ace": 0.39352793042861955,
+      "brier_score": 0.8294792749182178,
+      "mean_confidence": 0.6533136121310891,
+      "mean_entropy": 0.8770286773101399
+    },
+    "per_class": {
+      "COVID": {
+        "precision": 0.1916135881104034,
+        "recall": 0.9986168741355463,
+        "sensitivity": 0.9986168741355463,
+        "f1": 0.3215319527944778,
+        "specificity": 0.1321937321937322,
+        "support": 723,
+        "roc_auc": 0.9325598073869166,
+        "pr_auc": 0.8090763400607406
+      },
+      "Lung_Opacity": {
+        "precision": 0.8924485125858124,
+        "recall": 0.32418952618453867,
+        "sensitivity": 0.32418952618453867,
+        "f1": 0.47560975609756095,
+        "specificity": 0.9844884488448845,
+        "support": 1203,
+        "roc_auc": 0.9134098197849709,
+        "pr_auc": 0.8285366321709139
+      },
+      "Normal": {
+        "precision": 1.0,
+        "recall": 0.013738959764474975,
+        "sensitivity": 0.013738959764474975,
+        "f1": 0.027105517909002903,
+        "specificity": 1.0,
+        "support": 2038,
+        "roc_auc": 0.9358981179905262,
+        "pr_auc": 0.9257185590083848
+      },
+      "Viral Pneumonia": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 269,
+        "roc_auc": 0.993403456386287,
+        "pr_auc": 0.9265717388789553
+      }
+    },
+    "confusion_matrix": [
+      [
+        722,
+        1,
+        0,
+        0
+      ],
+      [
+        813,
+        390,
+        0,
+        0
+      ],
+      [
+        1965,
+        45,
+        28,
+        0
+      ],
+      [
+        268,
+        1,
+        0,
+        0
+      ]
+    ],
+    "global_test_loss": 1.3507172414210566
+  },
+  {
+    "round": 2,
+    "dataset_name": "covid",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.7838412473423104,
+      "balanced_accuracy": 0.7490881819213167,
+      "f1_macro": 0.7435169898995126,
+      "f1_micro": 0.7838412473423104,
+      "f1_weighted": 0.7931229989991962,
+      "precision_macro": 0.829062271062271,
+      "recall_macro": 0.7490881819213167,
+      "sensitivity_macro": 0.7490881819213167,
+      "specificity_macro": 0.9300044242786524,
+      "roc_auc_macro": 0.9769698608046441,
+      "pr_auc_macro": 0.9516870240129305,
+      "mean_confidence": 0.7400618707587356,
+      "mean_entropy": 0.6483642702301942,
+      "ece": 0.04847205830696146,
+      "precision_COVID": 0.512,
+      "recall_COVID": 0.9737206085753803,
+      "f1_COVID": 0.6711153479504289,
+      "specificity_COVID": 0.8088319088319088,
+      "support_COVID": 723,
+      "precision_Lung_Opacity": 0.8461538461538461,
+      "recall_Lung_Opacity": 0.8137988362427265,
+      "f1_Lung_Opacity": 0.8296610169491525,
+      "specificity_Lung_Opacity": 0.9412541254125413,
+      "support_Lung_Opacity": 1203,
+      "precision_Normal": 0.9580952380952381,
+      "recall_Normal": 0.7404317958783121,
+      "f1_Normal": 0.8353169111541655,
+      "specificity_Normal": 0.9699316628701594,
+      "support_Normal": 2038,
+      "precision_Viral_Pneumonia": 1.0,
+      "recall_Viral_Pneumonia": 0.4684014869888476,
+      "f1_Viral_Pneumonia": 0.6379746835443038,
+      "specificity_Viral_Pneumonia": 1.0,
+      "support_Viral_Pneumonia": 269
+    },
+    "calibration": {
+      "ece": 0.04847205830696146,
+      "mce": 0.3177846148610115,
+      "ace": 0.050187356803480854,
+      "brier_score": 0.3008631497586776,
+      "mean_confidence": 0.7400618707587356,
+      "mean_entropy": 0.6483642702301942
+    },
+    "per_class": {
+      "COVID": {
+        "precision": 0.512,
+        "recall": 0.9737206085753803,
+        "sensitivity": 0.9737206085753803,
+        "f1": 0.6711153479504289,
+        "specificity": 0.8088319088319088,
+        "support": 723,
+        "roc_auc": 0.9841062682003207,
+        "pr_auc": 0.9543331241791367
+      },
+      "Lung_Opacity": {
+        "precision": 0.8461538461538461,
+        "recall": 0.8137988362427265,
+        "sensitivity": 0.8137988362427265,
+        "f1": 0.8296610169491525,
+        "specificity": 0.9412541254125413,
+        "support": 1203,
+        "roc_auc": 0.954969287452436,
+        "pr_auc": 0.9192479486950361
+      },
+      "Normal": {
+        "precision": 0.9580952380952381,
+        "recall": 0.7404317958783121,
+        "sensitivity": 0.7404317958783121,
+        "f1": 0.8353169111541655,
+        "specificity": 0.9699316628701594,
+        "support": 2038,
+        "roc_auc": 0.9714222483519284,
+        "pr_auc": 0.9637854424973529
+      },
+      "Viral Pneumonia": {
+        "precision": 1.0,
+        "recall": 0.4684014869888476,
+        "sensitivity": 0.4684014869888476,
+        "f1": 0.6379746835443038,
+        "specificity": 1.0,
+        "support": 269,
+        "roc_auc": 0.9973816392138916,
+        "pr_auc": 0.9693815806801962
+      }
+    },
+    "confusion_matrix": [
+      [
+        704,
+        14,
+        5,
+        0
+      ],
+      [
+        167,
+        979,
+        57,
+        0
+      ],
+      [
+        408,
+        121,
+        1509,
+        0
+      ],
+      [
+        96,
+        43,
+        4,
+        126
+      ]
+    ],
+    "global_test_loss": 0.5507595486993517
+  },
+  {
+    "round": 3,
+    "dataset_name": "covid",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.8977084809827546,
+      "balanced_accuracy": 0.9152752507931761,
+      "f1_macro": 0.8929024981245006,
+      "f1_micro": 0.8977084809827546,
+      "f1_weighted": 0.8979642358451836,
+      "precision_macro": 0.8743944425397862,
+      "recall_macro": 0.9152752507931761,
+      "sensitivity_macro": 0.9152752507931761,
+      "specificity_macro": 0.9625575103331138,
+      "roc_auc_macro": 0.9833388398765626,
+      "pr_auc_macro": 0.9620781027775132,
+      "mean_confidence": 0.8596315070680487,
+      "mean_entropy": 0.39533992574055593,
+      "ece": 0.038623549690095654,
+      "precision_COVID": 0.8763020833333334,
+      "recall_COVID": 0.9308437067773168,
+      "f1_COVID": 0.9027498323272971,
+      "specificity_COVID": 0.9729344729344729,
+      "support_COVID": 723,
+      "precision_Lung_Opacity": 0.8753076292042657,
+      "recall_Lung_Opacity": 0.8869492934330839,
+      "f1_Lung_Opacity": 0.8810900082576383,
+      "specificity_Lung_Opacity": 0.9498349834983498,
+      "support_Lung_Opacity": 1203,
+      "precision_Normal": 0.9346473029045643,
+      "recall_Normal": 0.8842001962708538,
+      "f1_Normal": 0.9087241553202219,
+      "specificity_Normal": 0.9425968109339408,
+      "support_Normal": 2038,
+      "precision_Viral_Pneumonia": 0.8113207547169812,
+      "recall_Viral_Pneumonia": 0.9591078066914498,
+      "f1_Viral_Pneumonia": 0.879045996592845,
+      "specificity_Viral_Pneumonia": 0.9848637739656912,
+      "support_Viral_Pneumonia": 269
+    },
+    "calibration": {
+      "ece": 0.038623549690095654,
+      "mce": 0.09638905061219272,
+      "ace": 0.03914121770560247,
+      "brier_score": 0.16095567379382134,
+      "mean_confidence": 0.8596315070680487,
+      "mean_entropy": 0.39533992574055593
+    },
+    "per_class": {
+      "COVID": {
+        "precision": 0.8763020833333334,
+        "recall": 0.9308437067773168,
+        "sensitivity": 0.9308437067773168,
+        "f1": 0.9027498323272971,
+        "specificity": 0.9729344729344729,
+        "support": 723,
+        "roc_auc": 0.987221847871917,
+        "pr_auc": 0.9635701443176722
+      },
+      "Lung_Opacity": {
+        "precision": 0.8753076292042657,
+        "recall": 0.8869492934330839,
+        "sensitivity": 0.8869492934330839,
+        "f1": 0.8810900082576383,
+        "specificity": 0.9498349834983498,
+        "support": 1203,
+        "roc_auc": 0.9733471601524242,
+        "pr_auc": 0.9422478967598704
+      },
+      "Normal": {
+        "precision": 0.9346473029045643,
+        "recall": 0.8842001962708538,
+        "sensitivity": 0.8842001962708538,
+        "f1": 0.9087241553202219,
+        "specificity": 0.9425968109339408,
+        "support": 2038,
+        "roc_auc": 0.9751299344348048,
+        "pr_auc": 0.9693803560803448
+      },
+      "Viral Pneumonia": {
+        "precision": 0.8113207547169812,
+        "recall": 0.9591078066914498,
+        "sensitivity": 0.9591078066914498,
+        "f1": 0.879045996592845,
+        "specificity": 0.9848637739656912,
+        "support": 269,
+        "roc_auc": 0.9976564170471043,
+        "pr_auc": 0.9731140139521649
+      }
+    },
+    "confusion_matrix": [
+      [
+        673,
+        18,
+        29,
+        3
+      ],
+      [
+        44,
+        1067,
+        92,
+        0
+      ],
+      [
+        47,
+        132,
+        1802,
+        57
+      ],
+      [
+        4,
+        2,
+        5,
+        258
+      ]
+    ],
+    "global_test_loss": 0.3100995610727927
+  },
+  {
+    "round": 4,
+    "dataset_name": "covid",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.9114103472714387,
+      "balanced_accuracy": 0.9134753506985763,
+      "f1_macro": 0.9162717437090042,
+      "f1_micro": 0.9114103472714387,
+      "f1_weighted": 0.9103645178655337,
+      "precision_macro": 0.9221974174781518,
+      "recall_macro": 0.9134753506985763,
+      "sensitivity_macro": 0.9134753506985763,
+      "specificity_macro": 0.9632161584793465,
+      "roc_auc_macro": 0.9860889026038369,
+      "pr_auc_macro": 0.9709322842236137,
+      "mean_confidence": 0.8938875571509329,
+      "mean_entropy": 0.30903686188057067,
+      "ece": 0.018104065824788473,
+      "precision_COVID": 0.895778364116095,
+      "recall_COVID": 0.9391424619640387,
+      "f1_COVID": 0.9169480081026333,
+      "specificity_COVID": 0.9774928774928775,
+      "support_COVID": 723,
+      "precision_Lung_Opacity": 0.940212150433944,
+      "recall_Lung_Opacity": 0.8104738154613467,
+      "f1_Lung_Opacity": 0.8705357142857143,
+      "specificity_Lung_Opacity": 0.9795379537953796,
+      "support_Lung_Opacity": 1203,
+      "precision_Normal": 0.897742975587287,
+      "recall_Normal": 0.9563297350343474,
+      "f1_Normal": 0.9261107151342362,
+      "specificity_Normal": 0.8988610478359909,
+      "support_Normal": 2038,
+      "precision_Viral_Pneumonia": 0.9550561797752809,
+      "recall_Viral_Pneumonia": 0.9479553903345725,
+      "f1_Viral_Pneumonia": 0.9514925373134329,
+      "specificity_Viral_Pneumonia": 0.9969727547931383,
+      "support_Viral_Pneumonia": 269
+    },
+    "calibration": {
+      "ece": 0.018104065824788473,
+      "mce": 0.2943828304608663,
+      "ace": 0.01876984934082501,
+      "brier_score": 0.13422178105518126,
+      "mean_confidence": 0.8938875571509329,
+      "mean_entropy": 0.30903686188057067
+    },
+    "per_class": {
+      "COVID": {
+        "precision": 0.895778364116095,
+        "recall": 0.9391424619640387,
+        "sensitivity": 0.9391424619640387,
+        "f1": 0.9169480081026333,
+        "specificity": 0.9774928774928775,
+        "support": 723,
+        "roc_auc": 0.9902940817187015,
+        "pr_auc": 0.9738603547993288
+      },
+      "Lung_Opacity": {
+        "precision": 0.940212150433944,
+        "recall": 0.8104738154613467,
+        "sensitivity": 0.8104738154613467,
+        "f1": 0.8705357142857143,
+        "specificity": 0.9795379537953796,
+        "support": 1203,
+        "roc_auc": 0.9776400582701663,
+        "pr_auc": 0.9540851758647937
+      },
+      "Normal": {
+        "precision": 0.897742975587287,
+        "recall": 0.9563297350343474,
+        "sensitivity": 0.9563297350343474,
+        "f1": 0.9261107151342362,
+        "specificity": 0.8988610478359909,
+        "support": 2038,
+        "roc_auc": 0.9781939281219473,
+        "pr_auc": 0.9729559482277765
+      },
+      "Viral Pneumonia": {
+        "precision": 0.9550561797752809,
+        "recall": 0.9479553903345725,
+        "sensitivity": 0.9479553903345725,
+        "f1": 0.9514925373134329,
+        "specificity": 0.9969727547931383,
+        "support": 269,
+        "roc_auc": 0.9982275423045325,
+        "pr_auc": 0.982827658002556
+      }
+    },
+    "confusion_matrix": [
+      [
+        679,
+        10,
+        32,
+        2
+      ],
+      [
+        50,
+        975,
+        177,
+        1
+      ],
+      [
+        28,
+        52,
+        1949,
+        9
+      ],
+      [
+        1,
+        0,
+        13,
+        255
+      ]
+    ],
+    "global_test_loss": 0.2548575610549011
+  },
+  {
+    "round": 5,
+    "dataset_name": "covid",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.9213323883770376,
+      "balanced_accuracy": 0.9331473513143673,
+      "f1_macro": 0.9208443944585156,
+      "f1_micro": 0.9213323883770376,
+      "f1_weighted": 0.9211153532460583,
+      "precision_macro": 0.9102117621202579,
+      "recall_macro": 0.9331473513143673,
+      "sensitivity_macro": 0.9331473513143673,
+      "specificity_macro": 0.9698632012530468,
+      "roc_auc_macro": 0.9870941162184306,
+      "pr_auc_macro": 0.9739709532875243,
+      "mean_confidence": 0.9029862419767017,
+      "mean_entropy": 0.27445006139836653,
+      "ece": 0.018932150162451936,
+      "precision_COVID": 0.9070680628272252,
+      "recall_COVID": 0.9585062240663901,
+      "f1_COVID": 0.9320780094149294,
+      "specificity_COVID": 0.9797720797720798,
+      "support_COVID": 723,
+      "precision_Lung_Opacity": 0.9171752397558849,
+      "recall_Lung_Opacity": 0.8744804655029094,
+      "f1_Lung_Opacity": 0.8953191489361703,
+      "specificity_Lung_Opacity": 0.9686468646864687,
+      "support_Lung_Opacity": 1203,
+      "precision_Normal": 0.9348469891411648,
+      "recall_Normal": 0.929342492639843,
+      "f1_Normal": 0.9320866141732284,
+      "specificity_Normal": 0.939863325740319,
+      "support_Normal": 2038,
+      "precision_Viral_Pneumonia": 0.8817567567567568,
+      "recall_Viral_Pneumonia": 0.9702602230483272,
+      "f1_Viral_Pneumonia": 0.9238938053097345,
+      "specificity_Viral_Pneumonia": 0.9911705348133198,
+      "support_Viral_Pneumonia": 269
+    },
+    "calibration": {
+      "ece": 0.018932150162451936,
+      "mce": 0.2067128270864487,
+      "ace": 0.0198026576660047,
+      "brier_score": 0.12420567884897218,
+      "mean_confidence": 0.9029862419767017,
+      "mean_entropy": 0.27445006139836653
+    },
+    "per_class": {
+      "COVID": {
+        "precision": 0.9070680628272252,
+        "recall": 0.9585062240663901,
+        "sensitivity": 0.9585062240663901,
+        "f1": 0.9320780094149294,
+        "specificity": 0.9797720797720798,
+        "support": 723,
+        "roc_auc": 0.990748818826274,
+        "pr_auc": 0.9789961123520651
+      },
+      "Lung_Opacity": {
+        "precision": 0.9171752397558849,
+        "recall": 0.8744804655029094,
+        "sensitivity": 0.8744804655029094,
+        "f1": 0.8953191489361703,
+        "specificity": 0.9686468646864687,
+        "support": 1203,
+        "roc_auc": 0.9778115218005591,
+        "pr_auc": 0.9539698512085806
+      },
+      "Normal": {
+        "precision": 0.9348469891411648,
+        "recall": 0.929342492639843,
+        "sensitivity": 0.929342492639843,
+        "f1": 0.9320866141732284,
+        "specificity": 0.939863325740319,
+        "support": 2038,
+        "roc_auc": 0.9809199246212622,
+        "pr_auc": 0.976753544349575
+      },
+      "Viral Pneumonia": {
+        "precision": 0.8817567567567568,
+        "recall": 0.9702602230483272,
+        "sensitivity": 0.9702602230483272,
+        "f1": 0.9238938053097345,
+        "specificity": 0.9911705348133198,
+        "support": 269,
+        "roc_auc": 0.9988961996256269,
+        "pr_auc": 0.9861643052398764
+      }
+    },
+    "confusion_matrix": [
+      [
+        693,
+        9,
+        17,
+        4
+      ],
+      [
+        42,
+        1052,
+        108,
+        1
+      ],
+      [
+        28,
+        86,
+        1894,
+        30
+      ],
+      [
+        1,
+        0,
+        7,
+        261
+      ]
+    ],
+    "global_test_loss": 0.23583269230502169
+  }
+]

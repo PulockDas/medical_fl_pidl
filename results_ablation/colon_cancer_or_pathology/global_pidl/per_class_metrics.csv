@@ -1,0 +1,13 @@
+dataset_name,num_clients,round,class_name,precision,recall,f1,support
+colon_cancer_or_pathology,3,0,colon_aca,0.48299319727891155,0.923,0.6341463414634146,1000
+colon_cancer_or_pathology,3,0,colon_n,0.1348314606741573,0.012,0.02203856749311295,1000
+colon_cancer_or_pathology,3,1,colon_aca,0.9460737937559129,1.0,0.9722897423432183,1000
+colon_cancer_or_pathology,3,1,colon_n,1.0,0.943,0.970663921770458,1000
+colon_cancer_or_pathology,3,2,colon_aca,0.9803921568627451,1.0,0.9900990099009901,1000
+colon_cancer_or_pathology,3,2,colon_n,1.0,0.98,0.98989898989899,1000
+colon_cancer_or_pathology,3,3,colon_aca,0.9891196834817013,1.0,0.9945300845350572,1000
+colon_cancer_or_pathology,3,3,colon_n,1.0,0.989,0.9944695827048768,1000
+colon_cancer_or_pathology,3,4,colon_aca,0.998003992015968,1.0,0.999000999000999,1000
+colon_cancer_or_pathology,3,4,colon_n,1.0,0.998,0.998998998998999,1000
+colon_cancer_or_pathology,3,5,colon_aca,0.9960159362549801,1.0,0.998003992015968,1000
+colon_cancer_or_pathology,3,5,colon_n,1.0,0.996,0.9979959919839679,1000

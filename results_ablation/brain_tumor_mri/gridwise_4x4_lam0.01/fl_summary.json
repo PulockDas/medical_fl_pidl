@@ -1,0 +1,51 @@
+{
+  "dataset_name": "brain_tumor_mri",
+  "num_clients": 3,
+  "num_rounds": 6,
+  "best_accuracy": 0.9598214285714286,
+  "best_accuracy_round": 5,
+  "final_accuracy": 0.9598214285714286,
+  "best_balanced_accuracy": 0.9598214285714286,
+  "best_balanced_accuracy_round": 5,
+  "final_balanced_accuracy": 0.9598214285714286,
+  "best_macro_f1": 0.9599050793398143,
+  "best_macro_f1_round": 5,
+  "final_macro_f1": 0.9599050793398143,
+  "best_roc_auc_macro": 0.9966666666666667,
+  "best_roc_auc_macro_round": 5,
+  "final_roc_auc_macro": 0.9966666666666667,
+  "best_pr_auc_macro": 0.990525056822237,
+  "best_pr_auc_macro_round": 5,
+  "final_pr_auc_macro": 0.990525056822237,
+  "final_ece": 0.030315953253635355,
+  "final_mean_confidence": 0.9366286543597068,
+  "final_mean_entropy": 0.18577859210211584,
+  "total_training_time_sec": 0.0,
+  "total_inference_time_sec": 40.59,
+  "final_confusion_matrix": [
+    [
+      270,
+      9,
+      0,
+      1
+    ],
+    [
+      10,
+      261,
+      2,
+      7
+    ],
+    [
+      0,
+      4,
+      275,
+      1
+    ],
+    [
+      2,
+      9,
+      0,
+      269
+    ]
+  ]
+}

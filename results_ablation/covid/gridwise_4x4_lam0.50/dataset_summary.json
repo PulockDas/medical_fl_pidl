@@ -1,0 +1,78 @@
+{
+  "image_root": "/tmp/fl_flat_7a69b95a",
+  "num_classes": 4,
+  "class_names": [
+    "COVID",
+    "Lung_Opacity",
+    "Normal",
+    "Viral Pneumonia"
+  ],
+  "total_images": 21165,
+  "class_counts": {
+    "COVID": 3616,
+    "Lung_Opacity": 6012,
+    "Normal": 10192,
+    "Viral Pneumonia": 1345
+  },
+  "is_grayscale_source": true,
+  "splits": {
+    "train": {
+      "total": 16932,
+      "class_counts": {
+        "COVID": 2893,
+        "Lung_Opacity": 4809,
+        "Normal": 8154,
+        "Viral Pneumonia": 1076
+      }
+    },
+    "test": {
+      "total": 4233,
+      "class_counts": {
+        "COVID": 723,
+        "Lung_Opacity": 1203,
+        "Normal": 2038,
+        "Viral Pneumonia": 269
+      }
+    }
+  },
+  "partitioning": {
+    "strategy": "iid",
+    "num_clients": 3,
+    "client_sizes": [
+      5645,
+      5644,
+      5643
+    ],
+    "client_class_distributions": [
+      {
+        "COVID": 965,
+        "Lung_Opacity": 1603,
+        "Normal": 2718,
+        "Viral Pneumonia": 359
+      },
+      {
+        "COVID": 964,
+        "Lung_Opacity": 1603,
+        "Normal": 2718,
+        "Viral Pneumonia": 359
+      },
+      {
+        "COVID": 964,
+        "Lung_Opacity": 1603,
+        "Normal": 2718,
+        "Viral Pneumonia": 358
+      }
+    ]
+  },
+  "settings": {
+    "image_size": [
+      224,
+      224
+    ],
+    "batch_size": 32,
+    "augment": true,
+    "random_seed": 42,
+    "test_split": 0.2,
+    "num_workers": 0
+  }
+}
