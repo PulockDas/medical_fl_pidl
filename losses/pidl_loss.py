@@ -363,6 +363,50 @@ def gridwise_perona_malik_loss(
     return perona_malik_loss(patches, k=k, normalize=normalize)
 
 
+def gridwise_pm_cell_scores(
+    feature_map: torch.Tensor,
+    grid_size: int = 4,
+    k: float = 1.0,
+    normalize: bool = True,
+) -> torch.Tensor:
+    """Mean squared Perona-Malik residual per grid cell (for explainability maps).
+
+    Same patch tiling as :func:`gridwise_perona_malik_loss`, but returns a
+    spatial map of ``(B, grid_size, grid_size)`` scalar energies instead of a
+    single averaged loss. Higher values indicate stronger local PM residual
+    (spatial / edge–texture structure from the physics-inspired operator).
+
+    Args:
+        feature_map: ``(B, C, H, W)``.
+        grid_size:   Tiles per side.
+        k:           Perona-Malik edge threshold (match training ``k``).
+        normalize:   Per-patch min–max normalize before PM (same as training).
+
+    Returns:
+        ``(B, grid_size, grid_size)`` positive scores. If the feature map is
+        too small for tiling, returns shape ``(B, 1, 1)`` with the global PM
+        energy broadcast for each batch element.
+    """
+    patches = _extract_patches(feature_map, grid_size)
+    B = feature_map.shape[0]
+    gs = grid_size
+
+    if patches is None:
+        scalar = perona_malik_loss(feature_map, k=k, normalize=normalize)
+        val = scalar.detach().reshape(1, 1, 1).expand(B, 1, 1).clone()
+        return val
+
+    F = _normalize_per_sample(patches) if normalize else patches
+    grad_x, grad_y = compute_spatial_gradients(F)
+    grad_mag = torch.sqrt(grad_x ** 2 + grad_y ** 2 + 1e-8)
+    c = 1.0 / (1.0 + (grad_mag / (k + 1e-8)) ** 2)
+    flux_x = c * grad_x
+    flux_y = c * grad_y
+    residual = _backward_divergence(flux_x, flux_y)
+    energy = (residual ** 2).mean(dim=(1, 2, 3))
+    return energy.view(B, gs, gs)
+
+
 def gridwise_isotropic_loss(
     feature_map: torch.Tensor,
     grid_size: int = 4,

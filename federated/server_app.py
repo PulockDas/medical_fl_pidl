@@ -234,6 +234,7 @@ def server_fn(context: Context) -> ServerAppComponents:
     global_test_loader = data["global_test_loader"]
     num_classes        = data.get("num_classes", cfg["num_classes"])
     class_names        = data.get("class_names", [])
+    cfg["num_classes"] = int(num_classes)
 
     print(
         f"[Server] Dataset  : {cfg['dataset_name']}  "
@@ -314,6 +315,21 @@ def server_fn(context: Context) -> ServerAppComponents:
             inference_time_sec=infer_time,
         )
 
+        if server_round == cfg["num_server_rounds"]:
+            try:
+                import torch as _torch
+
+                fm = build_model(num_classes=num_classes, config=model_cfg).to("cpu")
+                set_model_parameters(fm, list(parameters))
+                mp = log_dir / "final_model.pth"
+                _torch.save(fm.state_dict(), str(mp))
+                print(f"[Server] Saved final global weights -> {mp}")
+            except Exception as _e:
+                print(
+                    f"[Server] WARNING: Could not save final_model.pth after round "
+                    f"{server_round}: {_e}"
+                )
+
         return float(results["loss"]), {
             "accuracy":           float(results["accuracy"]),
             "num_samples":        int(results["num_samples"]),
@@ -372,15 +388,20 @@ def server_fn(context: Context) -> ServerAppComponents:
         if _final_params_ref:
             try:
                 import torch as _torch
+                import traceback as _tb
+
                 final_model = build_model(
                     num_classes=num_classes, config=model_cfg
                 ).to("cpu")
                 set_model_parameters(final_model, _final_params_ref[0])
                 model_path = log_dir / "final_model.pth"
                 _torch.save(final_model.state_dict(), str(model_path))
-                print(f"[Finalize] Final model saved → {model_path}")
+                print(f"[Finalize] Final model saved -> {model_path}")
             except Exception as _e:
-                print(f"[Finalize] Warning: could not save model — {_e}")
+                print(
+                    f"[Finalize] WARNING: Could not save final_model.pth: {_e}"
+                )
+                print(_tb.format_exc())
 
     atexit.register(_finalize_experiment)
 
@@ -498,15 +519,28 @@ def finalize_experiment() -> None:
     if params_ref:
         try:
             import torch as _torch
+
             from configs.experiment_config import ModelConfig
+
             cfg_snap = logger._cfg if hasattr(logger, "_cfg") else {}
-            nc  = int(cfg_snap.get("num_classes", 4))
-            fl  = str(cfg_snap.get("feature_layer", "layer2"))
+            nc = int(cfg_snap.get("num_classes") or 0)
+            if nc <= 0:
+                raise ValueError(
+                    "num_classes missing or invalid in saved config; "
+                    "cannot reconstruct model for final_model.pth."
+                )
+            fl = str(cfg_snap.get("feature_layer", "layer2"))
             mdl_cfg = ModelConfig(pidl_feature_layer=fl)  # type: ignore[arg-type]
             final_model = build_model(num_classes=nc, config=mdl_cfg).to("cpu")
             set_model_parameters(final_model, params_ref[0])
             model_path = logger.log_dir / "final_model.pth"
             _torch.save(final_model.state_dict(), str(model_path))
-            print(f"[finalize_experiment] Final model saved → {model_path}")
+            print(f"[finalize_experiment] Final model saved -> {model_path}")
         except Exception as _e:
-            print(f"[finalize_experiment] Warning: could not save model — {_e}")
+            import traceback as _tb
+
+            print(
+                f"[finalize_experiment] WARNING: Could not save final_model.pth "
+                f"(metrics and CSV logs are still written): {_e}"
+            )
+            print(_tb.format_exc())
