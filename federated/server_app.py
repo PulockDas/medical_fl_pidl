@@ -485,6 +485,56 @@ _active_final_params_ref: list   = []
 _active_strategy_ref:     list   = []
 
 
+def save_final_model_from_session(log_dir: Path | str) -> bool:
+    """Persist ``final_model.pth`` from in-memory Flower parameters.
+
+    Call **after** ``run_simulation()`` (and usually after ``finalize_experiment()``).
+    Uses ``_active_final_params_ref`` and hyperparameters in ``log_dir/config.json``.
+    This is a reliable second chance if the first write failed or the file is empty.
+
+    Args:
+        log_dir: Experiment directory (must contain ``config.json``).
+
+    Returns:
+        ``True`` if ``log_dir/final_model.pth`` exists and is larger than 1 KiB.
+    """
+    import json as _json
+
+    log_dir = Path(log_dir)
+    import federated.server_app as _sa
+
+    params_ref = _sa._active_final_params_ref
+    if not params_ref or not params_ref[0]:
+        print("[save_final_model_from_session] No cached global parameters — cannot save.")
+        return False
+
+    cfg_path = log_dir / "config.json"
+    if not cfg_path.is_file():
+        print(f"[save_final_model_from_session] Missing {cfg_path}")
+        return False
+    cfg_dict = _json.loads(cfg_path.read_text(encoding="utf-8"))
+    nc = int(cfg_dict.get("num_classes") or 0)
+    if nc <= 0:
+        print("[save_final_model_from_session] Invalid num_classes in config.json")
+        return False
+    fl = str(cfg_dict.get("feature_layer", "layer2"))
+
+    import torch as _torch
+    from configs.experiment_config import ModelConfig
+
+    mdl_cfg = ModelConfig(pidl_feature_layer=fl)  # type: ignore[arg-type]
+    final_m = build_model(num_classes=nc, config=mdl_cfg).to("cpu")
+    set_model_parameters(final_m, params_ref[0])
+    out = log_dir / "final_model.pth"
+    _torch.save(final_m.state_dict(), str(out))
+    ok = out.is_file() and out.stat().st_size > 1024
+    if ok:
+        print(f"[save_final_model_from_session] OK -> {out} ({out.stat().st_size} bytes)")
+    else:
+        print(f"[save_final_model_from_session] Write failed or file too small: {out}")
+    return ok
+
+
 def finalize_experiment() -> None:
     """Finalize logging and save the model after ``run_simulation()`` returns.
 

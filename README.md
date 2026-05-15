@@ -48,6 +48,11 @@ medical_fl_pidl/
 │   ├── attacks.py                GaussianNoiseDataset, LabelFlipDataset
 │   ├── defenses.py               clip_model_update(), compute_update_norm()
 │   └── __init__.py
+├── explainability/
+│   ├── gradcam.py                Grad-CAM for ResNetPIDL
+│   ├── pm_grid_explainer.py     Perona–Malik grid scores + overlap metrics
+│   ├── plot_utils.py             Overlays + savefig helpers
+│   └── __init__.py
 ├── utils/
 │   ├── logging_utils.py          ExperimentLogger — CSV/JSON structured output
 │   ├── path_utils.py             Cross-platform path helpers
@@ -56,10 +61,12 @@ medical_fl_pidl/
 │   ├── 01_clean_multidataset_experiments.ipynb   Main FL runner (GitHub + Colab)
 │   ├── 02_result_analysis_and_plots.ipynb        Analysis, plots, summary tables
 │   ├── 03_robustness_experiments_optional.ipynb  Attack/defense experiments
-│   └── 04_ablation_study.ipynb                  PIDL type / grid size / lambda ablation
+│   ├── 04_ablation_study.ipynb                  PIDL type / grid size / lambda ablation
+│   └── 05_explainability_analysis.ipynb         Grad-CAM + PM maps (all datasets)
 ├── results/                      Per-run CSV/JSON output (main experiments)
 ├── results_ablation/             Per-run output (ablation study)
 ├── results_robustness/           Per-run output (robustness experiments)
+├── results_explainability/       Explainability outputs + `final_model.pth` per dataset (if saved)
 ├── requirements.txt
 ├── pyproject.toml
 ├── context.md
@@ -95,6 +102,14 @@ Open `notebooks/04_ablation_study.ipynb`.
 Runs 18 new experiments (6 variants × 3 datasets, 3 clients) and loads the existing
 3-client baseline from `results/` without re-running it.  
 Results are saved to `results_ablation/`.
+
+### Step 5 — Explainability (optional)
+
+Open `notebooks/05_explainability_analysis.ipynb`. By default it runs **all three** datasets and
+**trains Flower FL inside the notebook** (under `results_explainability/…`), then runs Grad-CAM
+and Perona–Malik grid explainability. Checkpoints are written with `finalize_experiment()` and
+`save_final_model_from_session()`. The final zip is the whole `results_explainability/` tree
+(the download step aborts if any `final_model.pth` is missing).
 
 ---
 
