@@ -152,22 +152,19 @@ def dirichlet_partition(
     for cls in classes:
         cls_indices = train_indices[train_targets == cls]
         rng.shuffle(cls_indices)
+        n = len(cls_indices)
+        if n == 0:
+            continue
 
-        # Sample allocation proportions from Dirichlet
         proportions = rng.dirichlet(alpha=np.full(num_clients, alpha))
-
-        # Convert proportions to integer counts
-        counts = (proportions * len(cls_indices)).astype(int)
-        remainder = len(cls_indices) - counts.sum()
-        # Give remainder samples to clients with the largest fractional parts
-        fractions = proportions * len(cls_indices) - counts
-        top_clients = np.argsort(-fractions)[:remainder]
-        counts[top_clients] += 1
+        splits = (proportions * n).astype(int)
+        splits[-1] = n - splits[:-1].sum()
 
         ptr = 0
-        for cid, count in enumerate(counts):
-            client_buckets[cid].extend(cls_indices[ptr : ptr + count].tolist())
-            ptr += count
+        for cid in range(num_clients):
+            take = int(splits[cid])
+            client_buckets[cid].extend(cls_indices[ptr : ptr + take].tolist())
+            ptr += take
 
     for cid, bucket in enumerate(client_buckets):
         if len(bucket) < min_samples_per_client:

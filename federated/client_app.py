@@ -129,6 +129,8 @@ def _parse_run_config(run_config: dict) -> dict:
         "grid_size":        _get("grid_size",         4,                 int),
         "k":                _get("k",                 0.1,               float),
         "random_seed":      _get("random_seed",       42,                int),
+        "partitioning":     _get("partitioning",      "iid",             str),
+        "dirichlet_alpha": _get("dirichlet_alpha",    0.5,               float),
         "use_secagg":       _get("use_secagg",        False,             bool),
         # ── Robustness (disabled by default) ──────────────────────────
         "enable_attack":            _get("enable_attack",            False,           bool),
@@ -344,6 +346,8 @@ def client_fn(context: Context):
         batch_size=cfg["batch_size"],
         image_size=cfg["image_size"],
         random_seed=cfg["random_seed"],
+        partitioning=cfg["partitioning"],
+        dirichlet_alpha=cfg["dirichlet_alpha"],
     )
 
     client_train_loaders = data["client_train_loaders"]

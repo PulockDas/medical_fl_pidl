@@ -112,6 +112,9 @@ data_root    = ""              # REQUIRED — fill in after kagglehub download
 log_dir      = "results/run_001"
 num_classes  = 4               # set to 0 for auto-detection from folder structure
 random_seed  = 42
+# Client partitioning: "iid" (stratified) or "dirichlet" (non-IID). alpha only applies to dirichlet.
+partitioning     = "iid"
+dirichlet_alpha  = 0.5
 
 # ── Federated learning ─────────────────────────────────────────────────────
 num_server_rounds = 5          # number of global aggregation rounds

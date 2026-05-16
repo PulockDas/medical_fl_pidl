@@ -8,7 +8,8 @@ can be called safely from multiple Flower client processes / threads.
 Shared data cache
 -----------------
 ``get_federated_data()`` builds the full federated DataLoader set once
-and caches it by (data_root, num_clients, batch_size, image_size, seed).
+and caches it by (data_root, num_clients, batch_size, image_size, seed,
+test_split, partitioning, dirichlet_alpha).
 In Flower simulation mode all client_fn and server_fn calls run in the
 same process, so every call after the first is a free dict lookup.
 """
@@ -44,6 +45,8 @@ def get_federated_data(
     augment: bool = True,
     num_workers: int = 0,
     save_summary_to: str | None = None,
+    partitioning: str = "iid",
+    dirichlet_alpha: float = 0.5,
 ) -> dict:
     """Return (cached) federated DataLoaders and dataset info.
 
@@ -61,6 +64,8 @@ def get_federated_data(
         augment:        Enable random augmentations on training splits.
         num_workers:    DataLoader worker processes (0 = main process).
         save_summary_to: Optional directory path for ``dataset_summary.json``.
+        partitioning:    ``"iid"`` (default) or ``"dirichlet"`` for non-IID splits.
+        dirichlet_alpha: Dirichlet concentration when ``partitioning="dirichlet"``.
 
     Returns:
         Dict with keys:
@@ -72,12 +77,21 @@ def get_federated_data(
     """
     from data.dataset_utils import build_federated_dataloaders
 
-    key = (data_root, num_clients, batch_size, image_size, random_seed, test_split)
+    key = (
+        data_root,
+        num_clients,
+        batch_size,
+        image_size,
+        random_seed,
+        test_split,
+        partitioning,
+        round(float(dirichlet_alpha), 8),
+    )
     with _DATA_CACHE_LOCK:
         if key not in _DATA_CACHE:
             print(
                 f"[task] Building federated data for {num_clients} clients "
-                f"from: {data_root}"
+                f"from: {data_root} (partitioning={partitioning})"
             )
             _DATA_CACHE[key] = build_federated_dataloaders(
                 image_root=data_root,
@@ -88,6 +102,8 @@ def get_federated_data(
                 augment=augment,
                 random_seed=random_seed,
                 num_workers=num_workers,
+                partitioning=partitioning,  # type: ignore[arg-type]
+                dirichlet_alpha=dirichlet_alpha,
                 save_summary_to=save_summary_to,
             )
         return _DATA_CACHE[key]

@@ -146,6 +146,8 @@ def _parse_run_config(run_config: dict) -> dict:
         "grid_size":          _get("grid_size",           4,                 int),
         "k":                             _get("k",                             0.1,      float),
         "random_seed":                   _get("random_seed",                   42,       int),
+        "partitioning":                  _get("partitioning",                  "iid",    str),
+        "dirichlet_alpha":               _get("dirichlet_alpha",               0.5,      float),
         # SecAgg+ — disabled by default for simulation (run_simulation in Flower
         # 1.29 does not support SecAggPlusWorkflow; enable only via flwr run CLI)
         "use_secagg":                      _get("use_secagg",                      False,    bool),
@@ -230,6 +232,8 @@ def server_fn(context: Context) -> ServerAppComponents:
         image_size=cfg["image_size"],
         random_seed=cfg["random_seed"],
         save_summary_to=str(log_dir),
+        partitioning=cfg["partitioning"],
+        dirichlet_alpha=cfg["dirichlet_alpha"],
     )
     global_test_loader = data["global_test_loader"]
     num_classes        = data.get("num_classes", cfg["num_classes"])
