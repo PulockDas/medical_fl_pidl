@@ -1,0 +1,11 @@
+dataset_name,num_clients,image_id,true_class,predicted_class,confidence,correct,mean_gradcam_score,max_gradcam_score,mean_pm_grid_score,max_pm_grid_score,top_pm_grid_index,gradcam_pm_overlap_score
+colon_cancer_or_pathology,3,0000,colon_aca,colon_aca,0.999995,True,0.586508,1.0,0.576627,0.999999,7,0.024628
+colon_cancer_or_pathology,3,0001,colon_aca,colon_aca,0.999996,True,0.60819,1.0,0.432608,1.0,3,0.009
+colon_cancer_or_pathology,3,0002,colon_aca,colon_aca,0.999997,True,0.573144,1.0,0.338205,1.0,5,0.153736
+colon_cancer_or_pathology,3,0003,colon_aca,colon_aca,0.999996,True,0.59101,1.0,0.340065,1.0,0,0.029378
+colon_cancer_or_pathology,3,0004,colon_aca,colon_aca,0.99998,True,0.521576,1.0,0.345564,1.0,11,0.077151
+colon_cancer_or_pathology,3,0005,colon_n,colon_n,1.0,True,0.250063,1.0,0.382281,1.0,10,0.43401
+colon_cancer_or_pathology,3,0006,colon_n,colon_n,0.999763,True,0.178324,1.0,0.409841,1.0,5,0.037294
+colon_cancer_or_pathology,3,0007,colon_n,colon_n,0.999999,True,0.220254,1.0,0.359919,0.999999,12,0.135233
+colon_cancer_or_pathology,3,0008,colon_n,colon_n,0.999999,True,0.255244,1.0,0.289862,1.0,11,0.118751
+colon_cancer_or_pathology,3,0009,colon_n,colon_n,0.999991,True,0.253348,1.0,0.496423,0.999999,12,0.124849

@@ -1,0 +1,16 @@
+{
+  "dataset_name": "colon_cancer_or_pathology",
+  "data_root": "/kaggle/input/lung-and-colon-cancer-histopathological-images/lung_colon_image_set/colon_image_sets",
+  "num_clients": 3,
+  "num_rounds": 5,
+  "local_epochs": 2,
+  "batch_size": 32,
+  "image_size": 224,
+  "feature_layer": "layer2",
+  "grid_size": 4,
+  "lambda_pm": 0.1,
+  "k_pm": 1.0,
+  "gradcam_layer": "layer4",
+  "samples_per_class": 5,
+  "random_seed": 42
+}

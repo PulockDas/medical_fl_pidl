@@ -1,0 +1,51 @@
+{
+  "dataset_name": "covid",
+  "num_clients": 3,
+  "num_rounds": 6,
+  "best_accuracy": 0.9128277817150957,
+  "best_accuracy_round": 5,
+  "final_accuracy": 0.9128277817150957,
+  "best_balanced_accuracy": 0.9086476704552724,
+  "best_balanced_accuracy_round": 3,
+  "final_balanced_accuracy": 0.9056230132270598,
+  "best_macro_f1": 0.9196279793481714,
+  "best_macro_f1_round": 5,
+  "final_macro_f1": 0.9196279793481714,
+  "best_roc_auc_macro": 0.986663609312419,
+  "best_roc_auc_macro_round": 5,
+  "final_roc_auc_macro": 0.986663609312419,
+  "best_pr_auc_macro": 0.9727446149289124,
+  "best_pr_auc_macro_round": 5,
+  "final_pr_auc_macro": 0.9727446149289124,
+  "final_ece": 0.009159104792524842,
+  "final_mean_confidence": 0.9091644287109375,
+  "final_mean_entropy": 0.26196923402669364,
+  "total_training_time_sec": 0.0,
+  "total_inference_time_sec": 155.64,
+  "final_confusion_matrix": [
+    [
+      662,
+      18,
+      42,
+      1
+    ],
+    [
+      15,
+      985,
+      203,
+      0
+    ],
+    [
+      11,
+      52,
+      1969,
+      6
+    ],
+    [
+      1,
+      0,
+      20,
+      248
+    ]
+  ]
+}

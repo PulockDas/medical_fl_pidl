@@ -1,0 +1,64 @@
+{
+  "image_root": "/kaggle/input/lung-and-colon-cancer-histopathological-images/lung_colon_image_set/colon_image_sets",
+  "num_classes": 2,
+  "class_names": [
+    "colon_aca",
+    "colon_n"
+  ],
+  "total_images": 10000,
+  "class_counts": {
+    "colon_aca": 5000,
+    "colon_n": 5000
+  },
+  "is_grayscale_source": false,
+  "splits": {
+    "train": {
+      "total": 8000,
+      "class_counts": {
+        "colon_aca": 4000,
+        "colon_n": 4000
+      }
+    },
+    "test": {
+      "total": 2000,
+      "class_counts": {
+        "colon_aca": 1000,
+        "colon_n": 1000
+      }
+    }
+  },
+  "partitioning": {
+    "strategy": "iid",
+    "num_clients": 3,
+    "client_sizes": [
+      2668,
+      2666,
+      2666
+    ],
+    "client_class_distributions": [
+      {
+        "colon_aca": 1334,
+        "colon_n": 1334
+      },
+      {
+        "colon_aca": 1333,
+        "colon_n": 1333
+      },
+      {
+        "colon_aca": 1333,
+        "colon_n": 1333
+      }
+    ]
+  },
+  "settings": {
+    "image_size": [
+      224,
+      224
+    ],
+    "batch_size": 32,
+    "augment": true,
+    "random_seed": 42,
+    "test_split": 0.2,
+    "num_workers": 0
+  }
+}

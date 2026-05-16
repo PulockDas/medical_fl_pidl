@@ -1,0 +1,21 @@
+ds_index,true_class,class_name,path
+1101,0,COVID,/tmp/fl_flat_f4f2148b/COVID/COVID-3616.png
+2552,0,COVID,/tmp/fl_flat_f4f2148b/COVID/COVID-179.png
+2108,0,COVID,/tmp/fl_flat_f4f2148b/COVID/COVID-1606.png
+3841,0,COVID,/tmp/fl_flat_f4f2148b/COVID/COVID-1654.png
+807,0,COVID,/tmp/fl_flat_f4f2148b/COVID/COVID-1691.png
+343,1,Lung_Opacity,/tmp/fl_flat_f4f2148b/Lung_Opacity/Lung_Opacity-5733.png
+4068,1,Lung_Opacity,/tmp/fl_flat_f4f2148b/Lung_Opacity/Lung_Opacity-5641.png
+3182,1,Lung_Opacity,/tmp/fl_flat_f4f2148b/Lung_Opacity/Lung_Opacity-2000.png
+3501,1,Lung_Opacity,/tmp/fl_flat_f4f2148b/Lung_Opacity/Lung_Opacity-3522.png
+2883,1,Lung_Opacity,/tmp/fl_flat_f4f2148b/Lung_Opacity/Lung_Opacity-4487.png
+2341,2,Normal,/tmp/fl_flat_f4f2148b/Normal/Normal-3459.png
+1525,2,Normal,/tmp/fl_flat_f4f2148b/Normal/Normal-2450.png
+558,2,Normal,/tmp/fl_flat_f4f2148b/Normal/Normal-3075.png
+1477,2,Normal,/tmp/fl_flat_f4f2148b/Normal/Normal-10164.png
+956,2,Normal,/tmp/fl_flat_f4f2148b/Normal/Normal-2309.png
+2900,3,Viral Pneumonia,/tmp/fl_flat_f4f2148b/Viral Pneumonia/Viral Pneumonia-360.png
+248,3,Viral Pneumonia,/tmp/fl_flat_f4f2148b/Viral Pneumonia/Viral Pneumonia-77.png
+2291,3,Viral Pneumonia,/tmp/fl_flat_f4f2148b/Viral Pneumonia/Viral Pneumonia-409.png
+2765,3,Viral Pneumonia,/tmp/fl_flat_f4f2148b/Viral Pneumonia/Viral Pneumonia-29.png
+3415,3,Viral Pneumonia,/tmp/fl_flat_f4f2148b/Viral Pneumonia/Viral Pneumonia-833.png

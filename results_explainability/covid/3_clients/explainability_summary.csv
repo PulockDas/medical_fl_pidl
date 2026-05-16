@@ -1,0 +1,21 @@
+dataset_name,num_clients,image_id,true_class,predicted_class,confidence,correct,mean_gradcam_score,max_gradcam_score,mean_pm_grid_score,max_pm_grid_score,top_pm_grid_index,gradcam_pm_overlap_score
+covid,3,0000,COVID,COVID,0.69711,True,0.350583,1.0,0.345162,1.0,4,0.168754
+covid,3,0001,COVID,COVID,0.668638,True,0.401886,1.0,0.39183,0.999999,7,0.102624
+covid,3,0002,COVID,COVID,0.732319,True,0.434341,1.0,0.367685,1.0,6,0.425652
+covid,3,0003,COVID,COVID,0.976151,True,0.493464,1.0,0.620428,1.0,5,0.279718
+covid,3,0004,COVID,COVID,0.974836,True,0.45183,1.0,0.319511,1.0,6,0.327127
+covid,3,0005,Lung_Opacity,Normal,0.913469,False,0.297173,1.0,0.313942,1.0,0,0.078404
+covid,3,0006,Lung_Opacity,Lung_Opacity,0.98381,True,0.334038,1.0,0.342905,1.0,4,0.066803
+covid,3,0007,Lung_Opacity,Lung_Opacity,0.974324,True,0.383191,1.0,0.245314,1.0,4,0.059012
+covid,3,0008,Lung_Opacity,Lung_Opacity,0.999056,True,0.357127,1.0,0.447263,1.0,10,0.053852
+covid,3,0009,Lung_Opacity,Normal,0.695402,False,0.213326,1.0,0.32769,1.0,4,0.041298
+covid,3,0010,Normal,Normal,0.916154,True,0.34916,1.0,0.381338,1.0,1,0.10046
+covid,3,0011,Normal,Normal,0.981704,True,0.34218,1.0,0.426904,1.0,6,0.220827
+covid,3,0012,Normal,Normal,0.966104,True,0.349668,1.0,0.367607,1.0,4,0.086807
+covid,3,0013,Normal,Normal,0.95852,True,0.363867,1.0,0.313643,1.0,5,0.178342
+covid,3,0014,Normal,Normal,0.983406,True,0.439118,1.0,0.454875,1.0,9,0.530455
+covid,3,0015,Viral Pneumonia,Viral Pneumonia,0.999547,True,0.465014,1.0,0.546978,1.0,11,0.202645
+covid,3,0016,Viral Pneumonia,Viral Pneumonia,0.992697,True,0.399678,1.0,0.612928,1.0,0,0.13387
+covid,3,0017,Viral Pneumonia,Viral Pneumonia,0.999698,True,0.521622,1.0,0.340578,1.0,5,0.508327
+covid,3,0018,Viral Pneumonia,Viral Pneumonia,0.998301,True,0.468062,1.0,0.471886,1.0,5,0.090972
+covid,3,0019,Viral Pneumonia,Viral Pneumonia,0.999383,True,0.429161,1.0,0.425952,1.0,6,0.324648
