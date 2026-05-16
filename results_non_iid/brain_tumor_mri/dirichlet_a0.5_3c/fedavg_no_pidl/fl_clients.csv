@@ -1,0 +1,6 @@
+dataset_name,num_clients,round,client_id,num_samples,train_loss,train_accuracy,train_ce_loss,train_reg_loss,train_time_sec,class_distribution
+brain_tumor_mri,3,1,aggregate,3,0.4573815334484347,0.8716517857142857,0.4573815334484347,0.0,,
+brain_tumor_mri,3,2,aggregate,3,0.2963816448410268,0.9088169642857142,0.2963816448410268,0.0,,
+brain_tumor_mri,3,3,aggregate,3,0.2613225750455188,0.9215401785714286,0.2613225750455188,0.0,,
+brain_tumor_mri,3,4,aggregate,3,0.2282044013947078,0.9332589285714286,0.2282044013947078,0.0,,
+brain_tumor_mri,3,5,aggregate,3,0.22730400274591764,0.9353794642857143,0.22730400274591764,0.0,,

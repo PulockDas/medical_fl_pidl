@@ -1,0 +1,710 @@
+[
+  {
+    "round": 0,
+    "dataset_name": "brain_tumor_mri",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.36875,
+      "balanced_accuracy": 0.36875,
+      "f1_macro": 0.28180797442514716,
+      "f1_micro": 0.36875,
+      "f1_weighted": 0.28180797442514716,
+      "precision_macro": 0.28400955484299945,
+      "recall_macro": 0.36875,
+      "sensitivity_macro": 0.36875,
+      "specificity_macro": 0.7895833333333333,
+      "roc_auc_macro": 0.6549914965986395,
+      "pr_auc_macro": 0.35878401891626555,
+      "mean_confidence": 0.6670180455648473,
+      "mean_entropy": 0.796350794065511,
+      "ece": 0.30296385179140733,
+      "precision_glioma": 0.0,
+      "recall_glioma": 0.0,
+      "f1_glioma": 0.0,
+      "specificity_glioma": 1.0,
+      "support_glioma": 280,
+      "precision_meningioma": 0.1956521739130435,
+      "recall_meningioma": 0.09642857142857143,
+      "f1_meningioma": 0.1291866028708134,
+      "specificity_meningioma": 0.8678571428571429,
+      "support_meningioma": 280,
+      "precision_notumor": 0.5989847715736041,
+      "recall_notumor": 0.42142857142857143,
+      "f1_notumor": 0.4947589098532495,
+      "specificity_notumor": 0.905952380952381,
+      "support_notumor": 280,
+      "precision_pituitary": 0.3414012738853503,
+      "recall_pituitary": 0.9571428571428572,
+      "f1_pituitary": 0.5032863849765258,
+      "specificity_pituitary": 0.38452380952380955,
+      "support_pituitary": 280
+    },
+    "calibration": {
+      "ece": 0.30296385179140733,
+      "mce": 0.7950928825885057,
+      "ace": 0.30023874925183397,
+      "brier_score": 0.9114039665315387,
+      "mean_confidence": 0.6670180455648473,
+      "mean_entropy": 0.796350794065511
+    },
+    "per_class": {
+      "glioma": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 280,
+        "roc_auc": 0.6544302721088436,
+        "pr_auc": 0.3378703652947256
+      },
+      "meningioma": {
+        "precision": 0.1956521739130435,
+        "recall": 0.09642857142857143,
+        "sensitivity": 0.09642857142857143,
+        "f1": 0.1291866028708134,
+        "specificity": 0.8678571428571429,
+        "support": 280,
+        "roc_auc": 0.509468537414966,
+        "pr_auc": 0.2503416228746063
+      },
+      "notumor": {
+        "precision": 0.5989847715736041,
+        "recall": 0.42142857142857143,
+        "sensitivity": 0.42142857142857143,
+        "f1": 0.4947589098532495,
+        "specificity": 0.905952380952381,
+        "support": 280,
+        "roc_auc": 0.8028486394557824,
+        "pr_auc": 0.542254429323686
+      },
+      "pituitary": {
+        "precision": 0.3414012738853503,
+        "recall": 0.9571428571428572,
+        "sensitivity": 0.9571428571428572,
+        "f1": 0.5032863849765258,
+        "specificity": 0.38452380952380955,
+        "support": 280,
+        "roc_auc": 0.653218537414966,
+        "pr_auc": 0.30466965817204417
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        8,
+        50,
+        222
+      ],
+      [
+        0,
+        27,
+        20,
+        233
+      ],
+      [
+        0,
+        100,
+        118,
+        62
+      ],
+      [
+        0,
+        3,
+        9,
+        268
+      ]
+    ],
+    "global_test_loss": 2.086790541240147
+  },
+  {
+    "round": 1,
+    "dataset_name": "brain_tumor_mri",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.5848214285714286,
+      "balanced_accuracy": 0.5848214285714286,
+      "f1_macro": 0.5096273764915231,
+      "f1_micro": 0.5848214285714286,
+      "f1_weighted": 0.509627376491523,
+      "precision_macro": 0.5195936908091005,
+      "recall_macro": 0.5848214285714286,
+      "sensitivity_macro": 0.5848214285714286,
+      "specificity_macro": 0.8616071428571429,
+      "roc_auc_macro": 0.9284576955782313,
+      "pr_auc_macro": 0.8137590136207585,
+      "mean_confidence": 0.5705081127850072,
+      "mean_entropy": 1.03717324235805,
+      "ece": 0.1223271705476301,
+      "precision_glioma": 0.0,
+      "recall_glioma": 0.0,
+      "f1_glioma": 0.0,
+      "specificity_glioma": 1.0,
+      "support_glioma": 280,
+      "precision_meningioma": 0.7692307692307693,
+      "recall_meningioma": 0.42857142857142855,
+      "f1_meningioma": 0.5504587155963303,
+      "specificity_meningioma": 0.9571428571428572,
+      "support_meningioma": 280,
+      "precision_notumor": 0.4108983799705449,
+      "recall_notumor": 0.9964285714285714,
+      "f1_notumor": 0.5818561001042752,
+      "specificity_notumor": 0.5238095238095238,
+      "support_notumor": 280,
+      "precision_pituitary": 0.8982456140350877,
+      "recall_pituitary": 0.9142857142857143,
+      "f1_pituitary": 0.9061946902654867,
+      "specificity_pituitary": 0.9654761904761905,
+      "support_pituitary": 280
+    },
+    "calibration": {
+      "ece": 0.1223271705476301,
+      "mce": 0.24904254369619416,
+      "ace": 0.12543986149664435,
+      "brier_score": 0.5245180960706209,
+      "mean_confidence": 0.5705081127850072,
+      "mean_entropy": 1.03717324235805
+    },
+    "per_class": {
+      "glioma": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 280,
+        "roc_auc": 0.8561139455782313,
+        "pr_auc": 0.5871966237825952
+      },
+      "meningioma": {
+        "precision": 0.7692307692307693,
+        "recall": 0.42857142857142855,
+        "sensitivity": 0.42857142857142855,
+        "f1": 0.5504587155963303,
+        "specificity": 0.9571428571428572,
+        "support": 280,
+        "roc_auc": 0.8781972789115646,
+        "pr_auc": 0.7173604167511362
+      },
+      "notumor": {
+        "precision": 0.4108983799705449,
+        "recall": 0.9964285714285714,
+        "sensitivity": 0.9964285714285714,
+        "f1": 0.5818561001042752,
+        "specificity": 0.5238095238095238,
+        "support": 280,
+        "roc_auc": 0.9916624149659864,
+        "pr_auc": 0.9826712715883256
+      },
+      "pituitary": {
+        "precision": 0.8982456140350877,
+        "recall": 0.9142857142857143,
+        "sensitivity": 0.9142857142857143,
+        "f1": 0.9061946902654867,
+        "specificity": 0.9654761904761905,
+        "support": 280,
+        "roc_auc": 0.9878571428571429,
+        "pr_auc": 0.9678077423609771
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        33,
+        240,
+        7
+      ],
+      [
+        0,
+        120,
+        138,
+        22
+      ],
+      [
+        0,
+        1,
+        279,
+        0
+      ],
+      [
+        0,
+        2,
+        22,
+        256
+      ]
+    ],
+    "global_test_loss": 1.0293217369488308
+  },
+  {
+    "round": 2,
+    "dataset_name": "brain_tumor_mri",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.6508928571428572,
+      "balanced_accuracy": 0.6508928571428572,
+      "f1_macro": 0.5545003970256968,
+      "f1_micro": 0.6508928571428572,
+      "f1_weighted": 0.5545003970256968,
+      "precision_macro": 0.48628638439656463,
+      "recall_macro": 0.6508928571428572,
+      "sensitivity_macro": 0.6508928571428572,
+      "specificity_macro": 0.8836309523809525,
+      "roc_auc_macro": 0.9353932823129252,
+      "pr_auc_macro": 0.8283315381880668,
+      "mean_confidence": 0.6525442926213145,
+      "mean_entropy": 0.8723831988084397,
+      "ece": 0.14622316820813075,
+      "precision_glioma": 0.0,
+      "recall_glioma": 0.0,
+      "f1_glioma": 0.0,
+      "specificity_glioma": 1.0,
+      "support_glioma": 280,
+      "precision_meningioma": 0.580441640378549,
+      "recall_meningioma": 0.6571428571428571,
+      "f1_meningioma": 0.6164154103852596,
+      "specificity_meningioma": 0.8416666666666667,
+      "support_meningioma": 280,
+      "precision_notumor": 0.7247956403269755,
+      "recall_notumor": 0.95,
+      "f1_notumor": 0.8222565687789799,
+      "specificity_notumor": 0.8797619047619047,
+      "support_notumor": 280,
+      "precision_pituitary": 0.6399082568807339,
+      "recall_pituitary": 0.9964285714285714,
+      "f1_pituitary": 0.7793296089385475,
+      "specificity_pituitary": 0.8130952380952381,
+      "support_pituitary": 280
+    },
+    "calibration": {
+      "ece": 0.14622316820813075,
+      "mce": 0.3229722023010254,
+      "ace": 0.14630358019577602,
+      "brier_score": 0.48210592564214494,
+      "mean_confidence": 0.6525442926213145,
+      "mean_entropy": 0.8723831988084397
+    },
+    "per_class": {
+      "glioma": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 280,
+        "roc_auc": 0.8818962585034014,
+        "pr_auc": 0.6573843220267286
+      },
+      "meningioma": {
+        "precision": 0.580441640378549,
+        "recall": 0.6571428571428571,
+        "sensitivity": 0.6571428571428571,
+        "f1": 0.6164154103852596,
+        "specificity": 0.8416666666666667,
+        "support": 280,
+        "roc_auc": 0.8772066326530612,
+        "pr_auc": 0.7022621159375196
+      },
+      "notumor": {
+        "precision": 0.7247956403269755,
+        "recall": 0.95,
+        "sensitivity": 0.95,
+        "f1": 0.8222565687789799,
+        "specificity": 0.8797619047619047,
+        "support": 280,
+        "roc_auc": 0.9886139455782313,
+        "pr_auc": 0.971302364585242
+      },
+      "pituitary": {
+        "precision": 0.6399082568807339,
+        "recall": 0.9964285714285714,
+        "sensitivity": 0.9964285714285714,
+        "f1": 0.7793296089385475,
+        "specificity": 0.8130952380952381,
+        "support": 280,
+        "roc_auc": 0.9938562925170068,
+        "pr_auc": 0.9823773502027769
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        132,
+        75,
+        73
+      ],
+      [
+        0,
+        184,
+        25,
+        71
+      ],
+      [
+        0,
+        1,
+        266,
+        13
+      ],
+      [
+        0,
+        0,
+        1,
+        279
+      ]
+    ],
+    "global_test_loss": 1.0682936481067113
+  },
+  {
+    "round": 3,
+    "dataset_name": "brain_tumor_mri",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.6857142857142857,
+      "balanced_accuracy": 0.6857142857142857,
+      "f1_macro": 0.6007836794420554,
+      "f1_micro": 0.6857142857142857,
+      "f1_weighted": 0.6007836794420554,
+      "precision_macro": 0.5482445038267525,
+      "recall_macro": 0.6857142857142857,
+      "sensitivity_macro": 0.6857142857142857,
+      "specificity_macro": 0.8952380952380953,
+      "roc_auc_macro": 0.9327519132653062,
+      "pr_auc_macro": 0.8628849300593464,
+      "mean_confidence": 0.7398935319323625,
+      "mean_entropy": 0.6909059703276104,
+      "ece": 0.11354671362787486,
+      "precision_glioma": 0.0,
+      "recall_glioma": 0.0,
+      "f1_glioma": 0.0,
+      "specificity_glioma": 1.0,
+      "support_glioma": 280,
+      "precision_meningioma": 0.4895397489539749,
+      "recall_meningioma": 0.8357142857142857,
+      "f1_meningioma": 0.6174142480211082,
+      "specificity_meningioma": 0.7095238095238096,
+      "support_meningioma": 280,
+      "precision_notumor": 0.9660377358490566,
+      "recall_notumor": 0.9142857142857143,
+      "f1_notumor": 0.9394495412844037,
+      "specificity_notumor": 0.9892857142857143,
+      "support_notumor": 280,
+      "precision_pituitary": 0.7374005305039788,
+      "recall_pituitary": 0.9928571428571429,
+      "f1_pituitary": 0.8462709284627092,
+      "specificity_pituitary": 0.8821428571428571,
+      "support_pituitary": 280
+    },
+    "calibration": {
+      "ece": 0.11354671362787486,
+      "mce": 0.6704789996147156,
+      "ace": 0.11311926461224046,
+      "brier_score": 0.4145471291285031,
+      "mean_confidence": 0.7398935319323625,
+      "mean_entropy": 0.6909059703276104
+    },
+    "per_class": {
+      "glioma": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 280,
+        "roc_auc": 0.8598511904761904,
+        "pr_auc": 0.6895210047687119
+      },
+      "meningioma": {
+        "precision": 0.4895397489539749,
+        "recall": 0.8357142857142857,
+        "sensitivity": 0.8357142857142857,
+        "f1": 0.6174142480211082,
+        "specificity": 0.7095238095238096,
+        "support": 280,
+        "roc_auc": 0.891296768707483,
+        "pr_auc": 0.8042559161376281
+      },
+      "notumor": {
+        "precision": 0.9660377358490566,
+        "recall": 0.9142857142857143,
+        "sensitivity": 0.9142857142857143,
+        "f1": 0.9394495412844037,
+        "specificity": 0.9892857142857143,
+        "support": 280,
+        "roc_auc": 0.9865603741496599,
+        "pr_auc": 0.9771316685698668
+      },
+      "pituitary": {
+        "precision": 0.7374005305039788,
+        "recall": 0.9928571428571429,
+        "sensitivity": 0.9928571428571429,
+        "f1": 0.8462709284627092,
+        "specificity": 0.8821428571428571,
+        "support": 280,
+        "roc_auc": 0.9932993197278913,
+        "pr_auc": 0.9806311307611785
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        238,
+        3,
+        39
+      ],
+      [
+        0,
+        234,
+        6,
+        40
+      ],
+      [
+        0,
+        4,
+        256,
+        20
+      ],
+      [
+        0,
+        2,
+        0,
+        278
+      ]
+    ],
+    "global_test_loss": 0.7902263658387321
+  },
+  {
+    "round": 4,
+    "dataset_name": "brain_tumor_mri",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.6821428571428572,
+      "balanced_accuracy": 0.6821428571428572,
+      "f1_macro": 0.5974662591181268,
+      "f1_micro": 0.6821428571428572,
+      "f1_weighted": 0.5974662591181268,
+      "precision_macro": 0.546423046752862,
+      "recall_macro": 0.6821428571428572,
+      "sensitivity_macro": 0.6821428571428572,
+      "specificity_macro": 0.8940476190476191,
+      "roc_auc_macro": 0.9483375850340136,
+      "pr_auc_macro": 0.8860886230992304,
+      "mean_confidence": 0.8311566587803619,
+      "mean_entropy": 0.49226973367310284,
+      "ece": 0.14901380163750477,
+      "precision_glioma": 0.0,
+      "recall_glioma": 0.0,
+      "f1_glioma": 0.0,
+      "specificity_glioma": 1.0,
+      "support_glioma": 280,
+      "precision_meningioma": 0.49064449064449067,
+      "recall_meningioma": 0.8428571428571429,
+      "f1_meningioma": 0.6202365308804205,
+      "specificity_meningioma": 0.7083333333333334,
+      "support_meningioma": 280,
+      "precision_notumor": 0.9615384615384616,
+      "recall_notumor": 0.8928571428571429,
+      "f1_notumor": 0.9259259259259259,
+      "specificity_notumor": 0.9880952380952381,
+      "support_notumor": 280,
+      "precision_pituitary": 0.7335092348284961,
+      "recall_pituitary": 0.9928571428571429,
+      "f1_pituitary": 0.8437025796661608,
+      "specificity_pituitary": 0.8797619047619047,
+      "support_pituitary": 280
+    },
+    "calibration": {
+      "ece": 0.14901380163750477,
+      "mce": 0.40286810466876394,
+      "ace": 0.1529361393568771,
+      "brier_score": 0.43890344980950247,
+      "mean_confidence": 0.8311566587803619,
+      "mean_entropy": 0.49226973367310284
+    },
+    "per_class": {
+      "glioma": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 280,
+        "roc_auc": 0.9195875850340136,
+        "pr_auc": 0.8105519467893316
+      },
+      "meningioma": {
+        "precision": 0.49064449064449067,
+        "recall": 0.8428571428571429,
+        "sensitivity": 0.8428571428571429,
+        "f1": 0.6202365308804205,
+        "specificity": 0.7083333333333334,
+        "support": 280,
+        "roc_auc": 0.8991709183673469,
+        "pr_auc": 0.7804669174741644
+      },
+      "notumor": {
+        "precision": 0.9615384615384616,
+        "recall": 0.8928571428571429,
+        "sensitivity": 0.8928571428571429,
+        "f1": 0.9259259259259259,
+        "specificity": 0.9880952380952381,
+        "support": 280,
+        "roc_auc": 0.9822874149659864,
+        "pr_auc": 0.973429135226276
+      },
+      "pituitary": {
+        "precision": 0.7335092348284961,
+        "recall": 0.9928571428571429,
+        "sensitivity": 0.9928571428571429,
+        "f1": 0.8437025796661608,
+        "specificity": 0.8797619047619047,
+        "support": 280,
+        "roc_auc": 0.9923044217687074,
+        "pr_auc": 0.9799064929071497
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        241,
+        8,
+        31
+      ],
+      [
+        0,
+        236,
+        2,
+        42
+      ],
+      [
+        0,
+        2,
+        250,
+        28
+      ],
+      [
+        0,
+        2,
+        0,
+        278
+      ]
+    ],
+    "global_test_loss": 0.8236259818077087
+  },
+  {
+    "round": 5,
+    "dataset_name": "brain_tumor_mri",
+    "num_clients": 3,
+    "flat_metrics": {
+      "accuracy": 0.6741071428571429,
+      "balanced_accuracy": 0.6741071428571429,
+      "f1_macro": 0.5909087110041379,
+      "f1_micro": 0.6741071428571429,
+      "f1_weighted": 0.590908711004138,
+      "precision_macro": 0.5506106900913214,
+      "recall_macro": 0.6741071428571429,
+      "sensitivity_macro": 0.6741071428571429,
+      "specificity_macro": 0.8913690476190476,
+      "roc_auc_macro": 0.954485544217687,
+      "pr_auc_macro": 0.8876351421377929,
+      "mean_confidence": 0.8295109606481024,
+      "mean_entropy": 0.477563629308584,
+      "ece": 0.15629460803632222,
+      "precision_glioma": 0.0,
+      "recall_glioma": 0.0,
+      "f1_glioma": 0.0,
+      "specificity_glioma": 1.0,
+      "support_glioma": 280,
+      "precision_meningioma": 0.4931237721021611,
+      "recall_meningioma": 0.8964285714285715,
+      "f1_meningioma": 0.6362484157160964,
+      "specificity_meningioma": 0.6928571428571428,
+      "support_meningioma": 280,
+      "precision_notumor": 0.978448275862069,
+      "recall_notumor": 0.8107142857142857,
+      "f1_notumor": 0.88671875,
+      "specificity_notumor": 0.9940476190476191,
+      "support_notumor": 280,
+      "precision_pituitary": 0.7308707124010554,
+      "recall_pituitary": 0.9892857142857143,
+      "f1_pituitary": 0.8406676783004552,
+      "specificity_pituitary": 0.8785714285714286,
+      "support_pituitary": 280
+    },
+    "calibration": {
+      "ece": 0.15629460803632222,
+      "mce": 0.36723586429249155,
+      "ace": 0.1590402256431324,
+      "brier_score": 0.44638387949712355,
+      "mean_confidence": 0.8295109606481024,
+      "mean_entropy": 0.477563629308584
+    },
+    "per_class": {
+      "glioma": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "sensitivity": 0.0,
+        "f1": 0.0,
+        "specificity": 1.0,
+        "support": 280,
+        "roc_auc": 0.905969387755102,
+        "pr_auc": 0.7438708111259441
+      },
+      "meningioma": {
+        "precision": 0.4931237721021611,
+        "recall": 0.8964285714285715,
+        "sensitivity": 0.8964285714285715,
+        "f1": 0.6362484157160964,
+        "specificity": 0.6928571428571428,
+        "support": 280,
+        "roc_auc": 0.9230739795918368,
+        "pr_auc": 0.8350717374990071
+      },
+      "notumor": {
+        "precision": 0.978448275862069,
+        "recall": 0.8107142857142857,
+        "sensitivity": 0.8107142857142857,
+        "f1": 0.88671875,
+        "specificity": 0.9940476190476191,
+        "support": 280,
+        "roc_auc": 0.9945025510204082,
+        "pr_auc": 0.9832464034559465
+      },
+      "pituitary": {
+        "precision": 0.7308707124010554,
+        "recall": 0.9892857142857143,
+        "sensitivity": 0.9892857142857143,
+        "f1": 0.8406676783004552,
+        "specificity": 0.8785714285714286,
+        "support": 280,
+        "roc_auc": 0.9943962585034013,
+        "pr_auc": 0.9883516164702743
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        247,
+        4,
+        29
+      ],
+      [
+        0,
+        251,
+        1,
+        28
+      ],
+      [
+        0,
+        8,
+        227,
+        45
+      ],
+      [
+        0,
+        3,
+        0,
+        277
+      ]
+    ],
+    "global_test_loss": 0.7820692130497524
+  }
+]
